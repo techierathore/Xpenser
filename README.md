@@ -1,4 +1,4 @@
-# This project is being archived for Now as I will be working on https://github.com/techierathore/expenses Application as it already has enough code written. 
+# This project is being archived for Now as I will be working on https://github.com/techierathore/expenses Application during my live streaming sessions. 
 
 Xpenser is a open source budget and expense tracking tool developed in Blazor Server.
 This is a sample application for live coding sessions done on Twitch, you can also understand the code, watch the development and contribute by joining me https://www.twitch.tv/techierathore. 

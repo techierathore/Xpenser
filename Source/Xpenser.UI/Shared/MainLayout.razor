@@ -1,15 +1,43 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
-</div>
-
-<div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-    </div>
-
-    <div class="content px-4">
+<Layout>
+    <LayoutHeader Fixed="true">
+        <Bar Style="height: 64px;" 
+             Breakpoint="Breakpoint.Desktop">
+            <BarBrand>
+                <div class="logo-wrap">
+                    <a href="">
+                        <span>TeleMetri</span>
+                    </a>
+                </div>
+            </BarBrand>
+            <BarMenu>
+                <BarEnd>
+                    <BarItem>
+                        <BarDropdown>
+                            <BarDropdownToggle>More</BarDropdownToggle>
+                            <BarDropdownMenu>
+                                <BarDropdownItem To="https://blazorise.com/docs/quick-start/">
+                                    Quick-Start Guide
+                                </BarDropdownItem>
+                                <BarDropdownItem To="https://blazorise.com/docs/usage/">
+                                    Usage
+                                </BarDropdownItem>
+                            </BarDropdownMenu>
+                        </BarDropdown>
+                    </BarItem>
+                </BarEnd>
+            </BarMenu>
+        </Bar>
+    </LayoutHeader>
+    <LayoutSider>
+        <LayoutSiderContent>
+            <NavMenu />
+        </LayoutSiderContent>
+    </LayoutSider>
+    <LayoutContent Padding="Padding.Is4.OnX">
         @Body
-    </div>
-</div>
+    </LayoutContent>
+</Layout>
+
+

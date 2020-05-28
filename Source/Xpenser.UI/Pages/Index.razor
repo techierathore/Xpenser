@@ -1,5 +1,199 @@
 ﻿@page "/"
+@inherits IndexBase
 
-<h1>Hello, world!</h1>
+<ConentPanel PanelTitle=@PageHeader>
+    <RightSesction>
+        <button @onclick="SaveData" class="btn btn-primary">
+            <span class="oi oi-plus" aria-hidden="true"></span> Save
+        </button>
+        &nbsp;&nbsp;
+        <NavLink class="btn btn-primary" href="">
+            <span class="oi oi-x" aria-hidden="true"></span>
+            Close
+        </NavLink>
+    </RightSesction>
+    <PanelContent>
+        <div class="col-12">
+            @if (PageObj == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <Tabs @bind-SelectedTab="@DefaultTabName">
+                        <Items>
+                            <Tab Name="JobInfo">Job Info</Tab>
+                            <Tab Name="WorkDetails">Work Details & Status</Tab>
+                            <Tab Name="BillingDetails">Billing Details</Tab>
+                            <Tab Name="TimeCost">Time,Cost,Commission</Tab>
+                        </Items>
+                        <Content>
+                            <TabPanel Name="JobInfo">
+                                <CardBody>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">Job Name</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <TextEdit @bind-Text="@PageObj.JobName" Placeholder="Job Name" />
+                                            </FieldBody>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            @if (CreditCardList != null)
+                                            {
+                                                <FieldLabel ColumnSize="ColumnSize.Is3">Credit Card</FieldLabel>
+                                                <FieldBody ColumnSize="ColumnSize.Is9">
+                                                    <SelectList Data="@CreditCardList"
+                                                                TextField="@((item)=>item.Last4Digits)"
+                                                                ValueField="@((item)=>item.CreditCardId)"
+                                                                SelectedValue="@SelectedCreditCard"
+                                                                SelectedValueChanged="@CreditCardChangedHandler" />
+                                                </FieldBody>
+                                            }
+                                        </Field>
+                                    </Fields>                                    
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            @if (EmployeeList != null)
+                                            {
+                                                <FieldLabel ColumnSize="ColumnSize.Is3">Pending on</FieldLabel>
+                                                <FieldBody ColumnSize="ColumnSize.Is9">
+                                                    <SelectList Data="@EmployeeList"
+                                                                TextField="@((item)=>item.FullName)"
+                                                                ValueField="@((item)=>item.EmployeeId)"
+                                                                SelectedValue="@SelectedPendingOn"
+                                                                SelectedValueChanged="@PendingOnChangedHandler" />
+                                                </FieldBody>
+                                            }
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            @if (EmployeeList != null)
+                                            {
+                                                <FieldLabel ColumnSize="ColumnSize.Is3">Sales Rep</FieldLabel>
+                                                <FieldBody ColumnSize="ColumnSize.Is9">
+                                                    <SelectList Data="@EmployeeList"
+                                                                TextField="@((item)=>item.FullName)"
+                                                                ValueField="@((item)=>item.EmployeeId)"
+                                                                SelectedValue="@SelectedSalesRep" />
+                                                </FieldBody>
+                                            }
+                                        </Field>
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is3.OnDesktop">
+                                            <FieldLabel></FieldLabel>
+                                            <Switch TValue="bool" @bind-Checked="@PageObj.MeetingDone">
+                                                Set up new meeting?
+                                            </Switch>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is3.OnDesktop">
+                                            <Switch TValue="bool" @bind-Checked="@PageObj.AnalyticsOn">
+                                                Turn on Analytics
+                                            </Switch>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is3.OnDesktop">
+                                            <Switch TValue="bool" @bind-Checked="@PageObj.PermitRequired">
+                                                Is Permit Required?
+                                            </Switch>
+                                        </Field>
+                                    </Fields>
+                                </CardBody>
+                            </TabPanel>
+                            <TabPanel Name="WorkDetails">
+                                <CardBody>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">QB Estimate #</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <TextEdit @bind-Text="@PageObj.QBEstimateNo" Placeholder="QB Estimate #" />
+                                            </FieldBody>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                                <FieldLabel ColumnSize="ColumnSize.Is3">Job Pictures / Documents</FieldLabel>
+                                                <FieldBody ColumnSize="ColumnSize.Is9">
 
-Welcome to your new app.
+                                                </FieldBody>
+                                            </Field>
+                                        </Field>
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is12.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">Description</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <MemoEdit Rows="5" @bind-Text="@PageObj.WoDescription" />
+                                            </FieldBody>
+                                        </Field>
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">Deadline Date</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is5">
+                                                <DateEdit TValue="DateTime?" @bind-Date="@PageObj.DeadlineDate" />
+                                            </FieldBody>
+                                            <FieldBody ColumnSize="ColumnSize.Is4">
+                                                <TimeEdit TValue="TimeSpan?" @bind-Time="@PageObj.DeadlineTime" />
+                                            </FieldBody>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">Scheduled Date</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <DateEdit TValue="DateTime?" @bind-Date="@PageObj.ScheduledDate" />
+                                            </FieldBody>
+                                        </Field>
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">Materials Used</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <MemoEdit Rows="5" @bind-Text="@PageObj.MaterialsUsed" />
+                                            </FieldBody>
+                                        </Field>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">History and Log</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <MemoEdit Rows="5" @bind-Text="@PageObj.HistoryAndLog" />
+                                            </FieldBody>
+                                        </Field>
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            @if (CrewManagerList != null)
+                                            {
+                                                <FieldLabel ColumnSize="ColumnSize.Is3">Crew Manager</FieldLabel>
+                                                <FieldBody ColumnSize="ColumnSize.Is9">
+                                                    <SelectList Data="@CrewManagerList"
+                                                                TextField="@((item)=>item.FullName)"
+                                                                ValueField="@((item)=>item.EmployeeId)"
+                                                                SelectedValue="@SelectedCrewManager" />
+                                                </FieldBody>
+                                            }
+                                        </Field>                                        
+                                    </Fields>
+                                    <Fields>
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is12.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is3">&nbsp</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is9">
+                                                <Switch TValue="bool" @bind-Checked="@PageObj.RescheduleJob">
+                                                    Reschedule Job
+                                                </Switch>
+                                            </FieldBody>
+                                        </Field>
+                                    </Fields>
+                                </CardBody>
+                            </TabPanel>
+                            <TabPanel Name="BillingDetails">
+                            </TabPanel>
+                            <TabPanel Name="TimeCost">
+                            </TabPanel>
+                        </Content>
+                    </Tabs>
+
+                </EditForm>
+            }
+        </div>
+    </PanelContent>
+</ConentPanel>
+

@@ -21,8 +21,7 @@
             else
             {
                 <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
-                    <DataAnnotationsValidator />
-                    <ValidationSummary />
+
                     <Tabs @bind-SelectedTab="@DefaultTabName">
                         <Items>
                             <Tab Name="JobInfo">Job Info</Tab>

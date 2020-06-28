@@ -1,0 +1,28 @@
+﻿<Card Margin="Margin.Is4.OnY">
+    <CardHeader>
+        <Row>
+            <Column>
+                <h6>
+                    @PanelTitle
+                </h6>
+            </Column>
+            <Column Class="d-flex">
+                <div Margin="Margin.IsAuto.FromLeft">
+                    @RightSesction
+                </div>
+            </Column>
+        </Row>
+    </CardHeader>
+    <CardBody>
+        @PanelContent
+    </CardBody>
+</Card>
+
+@code {
+    [Parameter]
+    public string PanelTitle { get; set; }
+    [Parameter]
+    public RenderFragment RightSesction { get; set; }
+    [Parameter]
+    public RenderFragment PanelContent { get; set; }
+}

@@ -6,10 +6,7 @@ namespace Xpenser.Models
 {
 	public class AppUser
 	{
-		#region Properties
-		/// <summary>
-		/// Gets or sets the AppUserId value.
-		/// </summary>
+
 		public long AppUserId
 		{ get; set; }
 
@@ -61,6 +58,5 @@ namespace Xpenser.Models
 		public string ProfilePicPath
 		{ get; set; }
 
-		#endregion
 	}
 }

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.UI", "Source\Xpense
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Models", "Source\Xpenser.Models\Xpenser.Models.csproj", "{EE339169-64B3-42B0-8E19-516953B964B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.API", "Xpenser.API\Xpenser.API.csproj", "{ADC013FA-4FDE-45E4-96E0-7DC2E4F3523D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.API", "Xpenser.API\Xpenser.API.csproj", "{ADC013FA-4FDE-45E4-96E0-7DC2E4F3523D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

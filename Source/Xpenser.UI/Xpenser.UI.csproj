@@ -25,4 +25,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xpenser.Models\Xpenser.Models.csproj" />
+  </ItemGroup>
 </Project>

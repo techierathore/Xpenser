@@ -25,47 +25,20 @@
                             </BarLink>
                         </BarItem>
                         <BarItem>
-                            <BarDropdown @bind-Visible="uiElementsVisible">
+                            <BarDropdown>
                                 <BarDropdownToggle>
                                     <BarIcon IconName="IconName.Wrench" />
-                                    UI Elements
+                                    Manage
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
-                                    <BarDropdownItem To="tests/buttons">
-                                        Buttons
+                                    <BarDropdownItem To="Account">
+                                        Accounts
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="tests/modals">
-                                        Modals
+                                    <BarDropdownItem To="FixedTrans">
+                                        Fixed Transactions
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="tests/cards">
-                                        Cards
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/progressbars">
-                                        Progress bars
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/elements">
-                                        General UI
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/typography">
-                                        Typography
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/collapse">
-                                        Collapse
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/tables">
-                                        Tables
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/figures">
-                                        Figures
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/tabs">
-                                        Tabs
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/carousel">
-                                        Carousel
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/layout">
-                                        Layout
+                                    <BarDropdownItem To="ExpCategory">
+                                        Expense Category
                                     </BarDropdownItem>
                                 </BarDropdownMenu>
                             </BarDropdown>
@@ -74,14 +47,17 @@
                             <BarDropdown>
                                 <BarDropdownToggle>
                                     <BarIcon IconName="IconName.Edit" />
-                                    Forms
+                                    Entry
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
-                                    <BarDropdownItem To="tests/forms">
-                                        Forms
+                                    <BarDropdownItem To="Income">
+                                        Income
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="tests/validations">
-                                        Validations
+                                    <BarDropdownItem To="Expense">
+                                        Expense
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="Transfer">
+                                        Transfer
                                     </BarDropdownItem>
                                 </BarDropdownMenu>
                             </BarDropdown>
@@ -89,24 +65,15 @@
                         <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
-                                    <BarIcon IconName="IconName.PuzzlePiece" />
-                                    Extensions
+                                    <BarIcon IconName="IconName.History" />
+                                    Reports
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
-                                    <BarDropdownItem To="tests/datagrid">
-                                        Data Grid
+                                    <BarDropdownItem To="Income">
+                                        Income
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="tests/components">
-                                        Components
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/charts">
-                                        Charts
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/livecharts">
-                                        Live Charts
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="tests/treeview">
-                                        TreeView
+                                    <BarDropdownItem To="Expense">
+                                        Expense
                                     </BarDropdownItem>
                                 </BarDropdownMenu>
                             </BarDropdown>
@@ -142,7 +109,7 @@
                     <BarEnd>
                         <BarItem>
                             <BarDropdown>
-                                <BarDropdownToggle><Icon Name="IconName.Tint" /></BarDropdownToggle>
+                                <BarDropdownToggle><Icon Name="IconName.User" /></BarDropdownToggle>
                                 <BarDropdownMenu Style="padding: 15px; min-width:50px;" RightAligned="true">
                                     <BarDropdownItem To="Profile">
                                         Profile

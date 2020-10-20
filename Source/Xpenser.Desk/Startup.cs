@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +22,13 @@ namespace BlazorDesk
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+.AddBlazorise(options =>
+{
+    options.ChangeTextOnKeyPress = true;
+})
+.AddBootstrapProviders()
+.AddFontAwesomeIcons();
             services.AddRazorPages();
             services.AddServerSideBlazor();
         }

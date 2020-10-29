@@ -21,7 +21,13 @@ namespace Xpenser.Models
 		/// </summary>
 		public string LastName
 		{ get; set; }
-
+		public string FullName
+		{
+			get
+			{
+				return FirstName + " " + LastName;
+			}
+		}
 		/// <summary>
 		/// Gets or sets the EmailID value.
 		/// </summary>
@@ -57,6 +63,9 @@ namespace Xpenser.Models
 		/// </summary>
 		public string ProfilePicPath
 		{ get; set; }
-
+		public string AccessToken
+		{ get; set; }
+		public string RefreshToken
+		{ get; set; }
 	}
 }

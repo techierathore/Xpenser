@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Web", "Source\Xpenser.Web\Xpenser.Web.csproj", "{C7922DA7-638B-4FE7-A749-B6F448A8B21E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.UI", "Source\Xpenser.UI\Xpenser.UI.csproj", "{294244B2-45D0-4DEF-82C6-1906FF741817}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.UI", "Source\Xpenser.UI\Xpenser.UI.csproj", "{294244B2-45D0-4DEF-82C6-1906FF741817}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Models", "Source\Xpenser.Models\Xpenser.Models.csproj", "{EE339169-64B3-42B0-8E19-516953B964B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.API", "Xpenser.API\Xpenser.API.csproj", "{ADC013FA-4FDE-45E4-96E0-7DC2E4F3523D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.Desk", "Source\Xpenser.Desk\Xpenser.Desk.csproj", "{8A717119-0740-4CCB-8976-2FF02CE731D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.DbMigration", "Source\Xpenser.DbMigration\Xpenser.DbMigration.csproj", "{C3F55837-1757-43E5-BF55-9ED9A93F31C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8A717119-0740-4CCB-8976-2FF02CE731D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A717119-0740-4CCB-8976-2FF02CE731D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A717119-0740-4CCB-8976-2FF02CE731D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3F55837-1757-43E5-BF55-9ED9A93F31C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F55837-1757-43E5-BF55-9ED9A93F31C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3F55837-1757-43E5-BF55-9ED9A93F31C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3F55837-1757-43E5-BF55-9ED9A93F31C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

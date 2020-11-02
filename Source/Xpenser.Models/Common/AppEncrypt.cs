@@ -101,7 +101,7 @@ namespace Xpenser.Models
         public static string GetNewToken(DateTime GenDate)
         {
             string vInitTokenVal = GenDate.ToString("yyMMdd") + GenDate.ToString("yyyyMMddTHHmmss", CultureInfo.InvariantCulture) + "71003502";
-            string sResult = vInitTokenVal.Encrypt(AppConstants.TeleSalt);
+            string sResult = vInitTokenVal.Encrypt(AppConstants.AppSalt);
             return sResult;
         }
     }

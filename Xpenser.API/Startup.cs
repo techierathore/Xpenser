@@ -29,26 +29,43 @@ namespace Xpenser.API
             string sConString = Configuration.GetConnectionString("Default");
             services.AddTransient<IAppUserRepository>(x => new AppUserRepo(sConString));
             services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title="Xpenser" ,
+                    Description="Swagger API",
+                    Version="v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Api");
+                options.RoutePrefix = string.Empty;
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+         
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+           
         }
     }
 }

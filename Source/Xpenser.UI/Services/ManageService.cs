@@ -54,7 +54,34 @@ namespace Xpenser.UI.Services
             }
 
         }
+        public async Task<List<TEntity>> GetReportAsync(string aRequestUri, ReportInput aObj)
+        {
+            try
+            {
+                string sSerialisedObj = JsonSerializer.Serialize(aObj);
+                var vRequestMessage = new HttpRequestMessage(HttpMethod.Post, aRequestUri);
+                var vAccessToken = await LocalStorageSvc.GetItemAsync<string>(AppConstants.AccessKey);
+                vRequestMessage.Headers.Authorization
+                    = new AuthenticationHeaderValue(AppConstants.BearerKey, vAccessToken);
+                vRequestMessage.Content = new StringContent(sSerialisedObj);
+                vRequestMessage.Content.Headers.ContentType
+                    = new MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
 
+                var vServiceResponse = await ServiceClient.SendAsync(vRequestMessage);
+                if (vServiceResponse.IsSuccessStatusCode)
+                {
+                    var vResponseBody = await vServiceResponse.Content.ReadAsStreamAsync();
+                    return await JsonSerializer.DeserializeAsync<List<TEntity>>(vResponseBody, JsonOptions);
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         public async Task<List<TEntity>> GetAllSubsAsync(string aRequestUri, long aId)
         {
             try
@@ -189,7 +216,6 @@ namespace Xpenser.UI.Services
             }
         }
 
-        /*
         public async Task<bool> UploadFile(string aRequestUri, TEntity aObj,
                                                     Stream aFiles, string aFileName)
         {
@@ -199,7 +225,7 @@ namespace Xpenser.UI.Services
                 var vAccessToken = await LocalStorageSvc.GetItemAsync<string>(AppConstants.AccessKey);
                 var vAuthHeader = new AuthenticationHeaderValue(AppConstants.BearerKey, vAccessToken);
                 ServiceClient.DefaultRequestHeaders.Authorization = vAuthHeader;
-                sSerialisedObj = TeleMetriEncrypt.TeleEncrypt(sSerialisedObj);
+                sSerialisedObj = AppEncrypt.EncryptText(sSerialisedObj);
                 var aInputData = new DocsWithFiles()
                 {
                     ComplexData = sSerialisedObj,
@@ -223,6 +249,8 @@ namespace Xpenser.UI.Services
                 throw ex;
             }
         }
+
+
         public async Task<byte[]> DownloadFile(string aRequestUri, long aId)
         {
             try
@@ -239,36 +267,5 @@ namespace Xpenser.UI.Services
                 throw ex;
             }
         }
-
-
-public async Task<List<TEntity>> GetReportAsync(string aRequestUri, ReportInput aObj)
-{
-    try
-    {
-        string sSerialisedObj = JsonSerializer.Serialize(aObj);
-        var vRequestMessage = new HttpRequestMessage(HttpMethod.Post, aRequestUri);
-        var vAccessToken = await LocalStorageSvc.GetItemAsync<string>(AppConstants.AccessKey);
-        vRequestMessage.Headers.Authorization
-            = new AuthenticationHeaderValue(AppConstants.BearerKey, vAccessToken);
-        vRequestMessage.Content = new StringContent(sSerialisedObj);
-        vRequestMessage.Content.Headers.ContentType
-            = new MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
-
-        var vServiceResponse = await ServiceClient.SendAsync(vRequestMessage);
-        if (vServiceResponse.IsSuccessStatusCode)
-        {
-            var vResponseBody = await vServiceResponse.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<List<TEntity>>(vResponseBody, JsonOptions);
-        }
-        else
-            return null;
-    }
-    catch (Exception ex)
-    {
-        throw ex;
-    }
-
-}
-*/
     }
 }

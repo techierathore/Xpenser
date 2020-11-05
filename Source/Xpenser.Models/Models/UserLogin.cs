@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Xpenser.Models.Models
+namespace Xpenser.Models
 {
 	public class UserLogin
 	{

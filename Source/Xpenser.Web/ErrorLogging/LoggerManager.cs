@@ -1,38 +1,32 @@
 ﻿using NLog;
-namespace Xpenser.API.ErrorLogging
+namespace Xpenser.Web.ErrorLogging
 {
     public class LoggerManager : ILoggerManager
     {
-        private static ILogger NLogLogger = LogManager.GetCurrentClassLogger();
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
 
         public LoggerManager()
         {
         }
 
-        public void LogCritical(string message)
-        {
-            NLogLogger.Fatal(message);
-        }
-
         public void LogDebug(string message)
         {
-            NLogLogger.Debug(message);
+            logger.Debug(message);
         }
 
         public void LogError(string message)
         {
-            NLogLogger.Error(message);
+            logger.Error(message);
         }
 
         public void LogInfo(string message)
         {
-            NLogLogger.Info(message);
+            logger.Info(message);
         }
 
         public void LogWarn(string message)
         {
-            NLogLogger.Warn(message);
+            logger.Warn(message);
         }
     }
 }
-

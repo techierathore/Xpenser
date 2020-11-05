@@ -1,7 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-namespace Xpenser.UI.Common
+
+namespace Xpenser.UI
 {
     public class ValidateHeaderHandler : DelegatingHandler
     {

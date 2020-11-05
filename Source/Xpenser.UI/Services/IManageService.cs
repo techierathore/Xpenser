@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Xpenser.Models;
+
 namespace Xpenser.UI.Services
 {
     public interface IManageService<TEntity>
@@ -12,8 +14,8 @@ namespace Xpenser.UI.Services
         Task<TEntity> GetIntSingleAsync(string aRequestUri, int aId);
         Task<TEntity> SaveAsync(string aRequestUri, TEntity aObj);
         Task<TEntity> UpdateAsync(string aRequestUri, TEntity aObj);
-        // Task<List<TEntity>> GetReportAsync(string aRequestUri, ReportInput aObj);
-        //Task<bool> UploadFile(string aRequestUri, TEntity aObj, Stream aFiles, string aFileName);
-        //Task<byte[]> DownloadFile(string aRequestUri, long aId);
+        Task<List<TEntity>> GetReportAsync(string aRequestUri, ReportInput aObj);
+        Task<bool> UploadFile(string aRequestUri, TEntity aObj, Stream aFiles, string aFileName);
+        Task<byte[]> DownloadFile(string aRequestUri, long aId);
     }
 }

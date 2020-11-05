@@ -14,6 +14,7 @@ namespace Xpenser.Models
 		}
 		public string EmailID { get; set; }
 		public string LoginPassword	{ get; set; }
+		public string ConfirmPassword { get; set; }
 		public string MobileNo	{ get; set; }
 		public bool Verified { get; set; }
 		public string Role	{ get; set; }

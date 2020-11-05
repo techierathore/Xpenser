@@ -17,5 +17,7 @@ namespace Xpenser.Models
         public static string DocTypeEstimate = "Estimate";
         public static string DocTypePropDocs = "PropertyDocs";
         public static string OfficeGeoConstant = "Office";
+        public static string AppUseRole = "AppUser";
+        public static string AppAdminRole = "AppAdmin";
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace Xpenser.UI.Common
+namespace Xpenser.UI
 {
     public static class ClientConstants
     {

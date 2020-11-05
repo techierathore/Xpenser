@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xpenser.Models;
 
 namespace Xpenser.UI.Services

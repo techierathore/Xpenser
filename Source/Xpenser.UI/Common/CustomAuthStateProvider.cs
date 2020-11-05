@@ -5,7 +5,8 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Xpenser.Models;
 using Xpenser.UI.Services;
-namespace Xpenser.UI.Common
+
+namespace Xpenser.UI
 {
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {

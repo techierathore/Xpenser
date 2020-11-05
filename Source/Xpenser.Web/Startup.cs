@@ -1,11 +1,16 @@
+using Blazored.LocalStorage;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Xpenser.UI;
+using Xpenser.UI.Services;
+using Xpenser.Web.ErrorLogging;
 
 namespace Xpenser.Web
 {
@@ -30,8 +35,17 @@ options.ChangeTextOnKeyPress = true;
 .AddBootstrapProviders()
 .AddFontAwesomeIcons();
             services.AddRazorPages();
-            services.AddServerSideBlazor();
-           
+            services.AddServerSideBlazor()
+                    .AddHubOptions(o => { o.MaximumReceiveMessageSize = 10 * 1024 * 1024; })
+                    .AddCircuitOptions(options => { options.DetailedErrors = true; });
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+            var appSettingSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingSection);
+            services.AddTransient<ValidateHeaderHandler>();
+            services.AddBlazoredLocalStorage();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+            services.AddHttpClient<IAuthService, AuthService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,58 +16,102 @@ namespace Xpenser.API.Controllers
     {
         private readonly IAppUserRepository UserRepo;
         private readonly ILoggerManager AppLogger;
+        private readonly IUserLoginRepository LoginRepo;
 
         public AuthSvcController(IAppUserRepository aUserRepo,
+            IUserLoginRepository aUserLogins,
              ILoggerManager aLogger)
         {
             UserRepo = aUserRepo;
+            LoginRepo = aUserLogins;
             AppLogger = aLogger;
+        }
+
+        [HttpPost("AppSignUp")]
+        public IActionResult AppSignUp([FromBody] SvcData aSignUpData)
+        {
+            if (aSignUpData == null)
+            { return BadRequest(); }
+            try
+            {
+                string sJwToken;
+                var vUserDataJson = AppEncrypt.DecryptText(aSignUpData.ComplexData);
+                AppUser vNewUser = JsonSerializer.Deserialize<AppUser>(vUserDataJson);
+
+                var vCheckUserByEmail = UserRepo.GetUserByEmail(vNewUser.EmailID);
+                if (vCheckUserByEmail != null) return BadRequest("User with this Email already present use login or Forgot Password (if you had forgotten the password) ");
+                var vCheckUserByMobile = UserRepo.GetUserByMobile(vNewUser.MobileNo);
+                if (vCheckUserByMobile != null) return BadRequest("User with this Phone No already present use login or Forgot Password (if you had forgotten the password) ");
+
+                vNewUser.LoginPassword = AppEncrypt.CreateHash(vNewUser.LoginPassword);
+                var iNewUserId = UserRepo.InsertToGetId(vNewUser);
+                if (iNewUserId >0)
+                {
+                    vNewUser.AppUserId = iNewUserId;
+                    sJwToken = GenerateJWToken(vNewUser);
+                    var vUserLogins = new UserLogin()
+                    {
+                        LoginToken = sJwToken,
+                        IssueDate = DateTime.Today,
+                        LoginDate = DateTime.Today,
+                        ExipryDate = DateTime.Today.AddDays(2),
+                        TokenStatus = TokenStatus.ValidToken.ToString(),
+                        UserId = vNewUser.AppUserId
+                    };
+                    LoginRepo.Insert(vUserLogins);
+                    vNewUser.AccessToken = sJwToken;
+                    vNewUser.RefreshToken = sJwToken;
+                }
+                else
+                { return BadRequest("Unable to Save New User"); }
+                string vRetData = JsonSerializer.Serialize(vNewUser);
+                string sEncryptedData = AppEncrypt.EncryptText(vRetData);
+                SvcData vReturnData = new SvcData()
+                {
+                    ComplexData = sEncryptedData,
+                    JwToken = sJwToken
+                };
+                return Ok(vReturnData);
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost("AppLogin")]
         public IActionResult AppLogin([FromBody] SvcData aLoginData)
         {
-            if (null == aLoginData) return BadRequest("InValid or Blank User Details");
+            if (aLoginData == null)
+            { return BadRequest(); }
             try
             {
-                AppLogger.LogCritical("=== Mobile Login Data Starts ===");
-                var vOrgCode = TeleMetriEncrypt.TeleDecrypt(aLoginData.OrgCode);
-                var vEmail = TeleMetriEncrypt.TeleDecrypt(aLoginData.LoginEmail);
-                var vPass = TeleMetriEncrypt.TeleDecrypt(aLoginData.LoginPass);
-
-                AppLogger.LogCritical("=== Org Code : " + vOrgCode + " ===");
-                AppLogger.LogCritical("=== Email / User ID : " + vEmail + " ===");
-                AppLogger.LogCritical("=== Password : " + vPass + " ===");
-                vPass = TeleMetriEncrypt.CreateHash(vPass);
-                AppLogger.LogCritical("=== PasswordHash : " + vPass + " ===");
-                AppLogger.LogCritical("=== Mobile Login Data Ends ===");
-                var vOrgByCode = OrgRepo.GetOrganizationByCode(vOrgCode);
-                if (vOrgByCode == null)
-                { return BadRequest("User Not Found"); }
-                var vConString = vOrgByCode.ConString;
-                //var vConString = "host=47.206.83.31;port=3306;user id=root;Password=Tipsey123.;database=megascapesdb;";
-
-                AppLogger.LogCritical("=== Connection String : " + vConString + " ===");
-                AppLogger.LogCritical("=== Mobile Login Data Ends ===");
-                EmpRepo = new EmployeeRepo(vConString);
-                AppUser vReturnObj = null; string sJwToken = string.Empty;
-                var vValidatedByEmail = EmpRepo.GetMobileEmployee(vEmail, vPass);
-                if (vValidatedByEmail != null)
+                string sJwToken;
+                var vEmail = AppEncrypt.DecryptText(aLoginData.LoginEmail);
+                var vPass = AppEncrypt.DecryptText(aLoginData.LoginPass);
+                vPass = AppEncrypt.CreateHash(vPass);
+                var vValidatedUser = UserRepo.GetLoginUser(vEmail, vPass);
+                if (vValidatedUser != null)
                 {
-                    vReturnObj = GetAppUser(vValidatedByEmail, EmpRepo, vConString);
-                    sJwToken = GenerateEmployeeJWToken(vValidatedByEmail, vConString);
+                    sJwToken = GenerateJWToken(vValidatedUser);
+                    var vUserLogins = new UserLogin()
+                    {
+                        LoginToken = sJwToken,
+                        IssueDate = DateTime.Today,
+                        LoginDate = DateTime.Today,
+                        ExipryDate = DateTime.Today.AddDays(2),
+                        TokenStatus = TokenStatus.ValidToken.ToString(),
+                        UserId = vValidatedUser.AppUserId
+                    };
+                    LoginRepo.Insert(vUserLogins);
+                    vValidatedUser.AccessToken = sJwToken;
+                    vValidatedUser.RefreshToken = sJwToken;
                 }
                 else
-                {
-                    var vValidatedByMob = EmpRepo.GetMobEmployee(vEmail, vPass);
-                    if (vValidatedByMob == null)
-                    { return BadRequest("User Not Found"); }
-                    vReturnObj = GetAppUser(vValidatedByMob, EmpRepo, vConString);
-                    sJwToken = GenerateEmployeeJWToken(vValidatedByMob, vConString);
-                }
-
-                string vRetData = JsonSerializer.Serialize(vReturnObj);
-                string sEncryptedData = TeleMetriEncrypt.TeleEncrypt(vRetData);
+                { return BadRequest("User Not Found"); }
+                string vRetData = JsonSerializer.Serialize(vValidatedUser);
+                string sEncryptedData = AppEncrypt.EncryptText(vRetData);
                 SvcData vReturnData = new SvcData()
                 {
                     ComplexData = sEncryptedData,
@@ -87,7 +131,6 @@ namespace Xpenser.API.Controllers
         {
             if (aTokenData == null)
             { return BadRequest(); }
-            AppUser vReturnObj;
             var vUserID = SvcUtils.GetUserIDFromToken(aTokenData.JwToken);
             var vValidatedToken = LoginRepo.GetUserByToken(vUserID, aTokenData.JwToken);
             if (vValidatedToken != null)
@@ -97,54 +140,19 @@ namespace Xpenser.API.Controllers
                 {
                     return BadRequest("User Not Found");
                 }
-                vReturnObj = new AppUser
+                vValidatedUser.AccessToken = aTokenData.JwToken;
+                vValidatedUser.RefreshToken = aTokenData.JwToken;
+                string vRetData = JsonSerializer.Serialize(vValidatedUser);
+                string sEncryptedData = AppEncrypt.EncryptText(vRetData);
+                SvcData vReturnData = new SvcData()
                 {
-                    UserId = vValidatedUser.TeleUserId,
-                    ManagerId = 0,
-                    FirstName = vValidatedUser.FirstName,
-                    LastName = vValidatedUser.LastName,
-                    Email = vValidatedUser.Email,
-                    UserRole = vValidatedUser.UserRole,
-                    ConString = vValidatedUser.ConString,
-                    AccessToken = aTokenData.JwToken,
-                    RefreshToken = aTokenData.JwToken
+                    ComplexData = sEncryptedData,
+                    JwToken = aTokenData.JwToken
                 };
+                return Ok(vReturnData);
             }
-            else
-            {
-                var vConString = SvcUtils.GetConnectionFromToken(aTokenData.JwToken);
-                TenantLoginRepo = new UserLoginRepo(vConString);
-                var vValidatedTenantToken = TenantLoginRepo.GetUserByToken(vUserID, aTokenData.JwToken);
-                if (vValidatedTenantToken == null)
-                { return BadRequest("User Not Found"); }
-                EmpRepo = new EmployeeRepo(vConString);
-                var vValidatedTenantUser = EmpRepo.GetSingle(vUserID);
-                if (vValidatedTenantUser == null)
-                {
-                    return BadRequest("User Not Found");
-                }
-                vReturnObj = new AppUser
-                {
-                    UserId = vValidatedTenantUser.EmployeeId,
-                    ManagerId = vValidatedTenantUser.ManagerId,
-                    FirstName = vValidatedTenantUser.FirstName,
-                    LastName = vValidatedTenantUser.LastName,
-                    Email = vValidatedTenantUser.Email,
-                    UserRole = vValidatedTenantUser.EmployeeTier,
-                    ConString = vConString,
-                    AccessToken = aTokenData.JwToken,
-                    RefreshToken = aTokenData.JwToken,
-                };
+            else { return BadRequest("User Not Found"); }
 
-            }
-            string vRetData = JsonSerializer.Serialize(vReturnObj);
-            string sEncryptedData = AppEncrypt.EncryptText(vRetData);
-            SvcData vReturnData = new SvcData()
-            {
-                ComplexData = sEncryptedData,
-                JwToken = aTokenData.JwToken
-            };
-            return Ok(vReturnData);
         }
 
         private string GenerateJWToken(AppUser aLoggedInUser)

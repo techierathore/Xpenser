@@ -14,7 +14,7 @@ namespace Xpenser.UI.Services
         readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
 
         protected const string LoginSvcUrl = "AuthSvc/AppLogin";
-        protected const string RegSvcUrl = "AuthSvc/RegUser";
+        protected const string RegSvcUrl = "AuthSvc/AppSignUp";
         protected const string RefreshTokenSvcUrl = "AuthSvc/RefreshToken";
         protected const string UserByTokenSvcUrl = "AuthSvc/GetUserByToken";
         public AuthService(HttpClient aSvcClient, IOptions<AppSettings> aSvcUrlSetting)

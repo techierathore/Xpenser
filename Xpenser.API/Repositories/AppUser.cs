@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using Xpenser.API.DataAccess;
 using Xpenser.Models;
@@ -30,6 +31,11 @@ namespace Xpenser.API.Repositories
         }
         public override void Insert(AppUser aEntity)
         {
+            throw new System.NotImplementedException();
+        }
+        public long InsertToGetId(AppUser aEntity)
+        {
+            long lLastInsertedId = 0;
             using var vConn = GetOpenConnection();
             var vParams = new DynamicParameters();
             vParams.Add("@pFirstName", aEntity.FirstName);
@@ -37,9 +43,11 @@ namespace Xpenser.API.Repositories
             vParams.Add("@pUserEmail", aEntity.EmailID);
             vParams.Add("@pLoginPass", aEntity.LoginPassword);
             vParams.Add("@pAppUserRole", aEntity.Role);
-            int iResult = vConn.Execute("AppUserInsert", vParams, commandType: CommandType.StoredProcedure);
+            vParams.Add("@pInsertedId", lLastInsertedId, direction: ParameterDirection.Output);
+            vConn.Execute("AppUserInsert", vParams, commandType: CommandType.StoredProcedure);
+            lLastInsertedId = vParams.Get<long>("@pInsertedId");
+            return lLastInsertedId;
         }
-
         public override void Update(AppUser aEntityToUpdate)
         {
             using var vConn = GetOpenConnection();
@@ -60,6 +68,18 @@ namespace Xpenser.API.Repositories
             vParams.Add("@pEmail", aLoginEmail);
             vParams.Add("@pPasswordHash", aPassword);
             var vReturnUser = vConn.Query<AppUser>("ValidateLogin", vParams, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            return vReturnUser;
+        }
+        public  AppUser GetUserByEmail(string loginEmail)
+        {
+            using var vConn = GetOpenConnection();
+            var vReturnUser = vConn.Query<AppUser>("GetAppUserByEmail", new { LoginMail = loginEmail }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            return vReturnUser;
+        }
+        public  AppUser GetUserByMobile(string aMobileNo)
+        {
+            using var vConn = GetOpenConnection();
+            var vReturnUser = vConn.Query<AppUser>("GetUserByMobile", new { UserMobileNo = aMobileNo }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return vReturnUser;
         }
     }

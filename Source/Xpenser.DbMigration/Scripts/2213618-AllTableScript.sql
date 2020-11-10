@@ -3,7 +3,7 @@ CREATE TABLE `AppUser` (
 	`FirstName` varchar(255) NOT NULL,
 	`LastName` varchar(255) NOT NULL,
 	`EmailID` varchar(355) NOT NULL,
-	`LoginPassword` varchar(35) NOT NULL,
+	`PasswordHash` varchar(35) NOT NULL,
 	`MobileNo` varchar(35) NOT NULL,
 	`Verified` BOOLEAN NOT NULL,
 	`Role` varchar(55) NOT NULL,

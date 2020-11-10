@@ -43,7 +43,7 @@ namespace Xpenser.API.Controllers
                 var vCheckUserByMobile = UserRepo.GetUserByMobile(vNewUser.MobileNo);
                 if (vCheckUserByMobile != null) return BadRequest("User with this Phone No already present use login or Forgot Password (if you had forgotten the password) ");
 
-                vNewUser.LoginPassword = AppEncrypt.CreateHash(vNewUser.LoginPassword);
+                vNewUser.PasswordHash = AppEncrypt.CreateHash(vNewUser.PasswordHash);
                 var iNewUserId = UserRepo.InsertToGetId(vNewUser);
                 if (iNewUserId >0)
                 {

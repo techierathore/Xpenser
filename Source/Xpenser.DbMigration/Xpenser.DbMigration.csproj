@@ -99,6 +99,7 @@
     <None Include="packages.config" />
     <None Include="app.config" />
     <None Include="Scripts\221151144-AppUserSPs.sql" />
+    <None Include="Scripts\221111111-UserLoginSPs.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

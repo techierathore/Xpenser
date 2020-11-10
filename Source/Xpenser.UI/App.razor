@@ -1,15 +1,12 @@
 ﻿<Blazorise.ThemeProvider Theme="@XpTheme">
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         </Found>
         <NotFound>
-            <CascadingAuthenticationState>
-                <LayoutView Layout="@typeof(MainLayout)">
-                    <h1>404 Error</h1>
-                    <p>Sorry, there's nothing at this address.</p>
-                </LayoutView>
-            </CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
         </NotFound>
     </Router>
 </Blazorise.ThemeProvider>

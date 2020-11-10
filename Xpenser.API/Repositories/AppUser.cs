@@ -41,23 +41,27 @@ namespace Xpenser.API.Repositories
             vParams.Add("@pFirstName", aEntity.FirstName);
             vParams.Add("@pLastName", aEntity.LastName);
             vParams.Add("@pUserEmail", aEntity.EmailID);
-            vParams.Add("@pLoginPass", aEntity.LoginPassword);
+            vParams.Add("@pLoginPass", aEntity.PasswordHash);
+            vParams.Add("@pUserMobileNo", aEntity.MobileNo);
+            vParams.Add("@pVerified", aEntity.Verified);
             vParams.Add("@pAppUserRole", aEntity.Role);
             vParams.Add("@pInsertedId", lLastInsertedId, direction: ParameterDirection.Output);
             vConn.Execute("AppUserInsert", vParams, commandType: CommandType.StoredProcedure);
             lLastInsertedId = vParams.Get<long>("@pInsertedId");
             return lLastInsertedId;
         }
-        public override void Update(AppUser aEntityToUpdate)
+        public override void Update(AppUser aEntity)
         {
             using var vConn = GetOpenConnection();
             var vParams = new DynamicParameters();
-            vParams.Add("@pAppUserId", aEntityToUpdate.AppUserId);
-            vParams.Add("@pFirstName", aEntityToUpdate.FirstName);
-            vParams.Add("@pLastName", aEntityToUpdate.LastName);
-            vParams.Add("@pUserEmail", aEntityToUpdate.EmailID);
-            vParams.Add("@pLoginPass", aEntityToUpdate.LoginPassword);
-            vParams.Add("@pAppUserRole", aEntityToUpdate.Role);
+            vParams.Add("@pAppUserId", aEntity.AppUserId);
+            vParams.Add("@pFirstName", aEntity.FirstName);
+            vParams.Add("@pLastName", aEntity.LastName);
+            vParams.Add("@pUserEmail", aEntity.EmailID);
+            vParams.Add("@pLoginPass", aEntity.PasswordHash);
+            vParams.Add("@pUserMobileNo", aEntity.MobileNo);
+            vParams.Add("@pVerified", aEntity.Verified);
+            vParams.Add("@pAppUserRole", aEntity.Role);
             vConn.Execute("AppUserUpdate", vParams, commandType: CommandType.StoredProcedure);
         }
 
@@ -73,14 +77,16 @@ namespace Xpenser.API.Repositories
         public  AppUser GetUserByEmail(string loginEmail)
         {
             using var vConn = GetOpenConnection();
-            var vReturnUser = vConn.Query<AppUser>("GetAppUserByEmail", new { LoginMail = loginEmail }, commandType: CommandType.StoredProcedure).SingleOrDefault();
-            return vReturnUser;
+            var vParams = new DynamicParameters();
+            vParams.Add("@pEmailID", loginEmail);
+            return vConn.QueryFirstOrDefault<AppUser>("AppUserByEmail", vParams, commandType: CommandType.StoredProcedure);
         }
         public  AppUser GetUserByMobile(string aMobileNo)
         {
             using var vConn = GetOpenConnection();
-            var vReturnUser = vConn.Query<AppUser>("GetUserByMobile", new { UserMobileNo = aMobileNo }, commandType: CommandType.StoredProcedure).SingleOrDefault();
-            return vReturnUser;
+            var vParams = new DynamicParameters();
+            vParams.Add("@pMobileNo", aMobileNo);
+            return vConn.QueryFirstOrDefault<AppUser>("AppUserByMobile", vParams, commandType: CommandType.StoredProcedure);
         }
     }
 }

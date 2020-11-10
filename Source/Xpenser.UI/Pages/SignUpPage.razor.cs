@@ -28,6 +28,7 @@ namespace Xpenser.UI.Pages
         private async Task<bool> RegisterUser()
         {
             PageObj.Role = AppConstants.AppUseRole;
+            PageObj.Verified = false;
             SignUpDetails = new SvcData()
             { ComplexData = JsonSerializer.Serialize(PageObj) };
 

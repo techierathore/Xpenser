@@ -40,11 +40,11 @@ namespace Xpenser.API.Repositories
             var vParams = new DynamicParameters();
             vParams.Add("@pFirstName", aEntity.FirstName);
             vParams.Add("@pLastName", aEntity.LastName);
-            vParams.Add("@pUserEmail", aEntity.EmailID);
-            vParams.Add("@pLoginPass", aEntity.PasswordHash);
-            vParams.Add("@pUserMobileNo", aEntity.MobileNo);
-            vParams.Add("@pVerified", aEntity.Verified);
-            vParams.Add("@pAppUserRole", aEntity.Role);
+            vParams.Add("@pEmailID", aEntity.EmailID);
+            vParams.Add("@pPasswordHash", aEntity.PasswordHash);
+            vParams.Add("@pMobileNo", aEntity.MobileNo);
+            vParams.Add("@pIsVerified", aEntity.IsVerified);
+            vParams.Add("@pRole", aEntity.Role);
             vParams.Add("@pInsertedId", lLastInsertedId, direction: ParameterDirection.Output);
             vConn.Execute("AppUserInsert", vParams, commandType: CommandType.StoredProcedure);
             lLastInsertedId = vParams.Get<long>("@pInsertedId");
@@ -57,11 +57,11 @@ namespace Xpenser.API.Repositories
             vParams.Add("@pAppUserId", aEntity.AppUserId);
             vParams.Add("@pFirstName", aEntity.FirstName);
             vParams.Add("@pLastName", aEntity.LastName);
-            vParams.Add("@pUserEmail", aEntity.EmailID);
-            vParams.Add("@pLoginPass", aEntity.PasswordHash);
-            vParams.Add("@pUserMobileNo", aEntity.MobileNo);
-            vParams.Add("@pVerified", aEntity.Verified);
-            vParams.Add("@pAppUserRole", aEntity.Role);
+            vParams.Add("@pEmailID", aEntity.EmailID);
+            vParams.Add("@pPasswordHash", aEntity.PasswordHash);
+            vParams.Add("@pMobileNo", aEntity.MobileNo);
+            vParams.Add("@pIsVerified", aEntity.IsVerified);
+            vParams.Add("@pRole", aEntity.Role);
             vConn.Execute("AppUserUpdate", vParams, commandType: CommandType.StoredProcedure);
         }
 

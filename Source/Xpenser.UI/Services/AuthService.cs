@@ -29,7 +29,6 @@ namespace Xpenser.UI.Services
 
         public async Task<AppUser> LoginAsync(SvcData aLoginUser)
         {
-            aLoginUser.OrgCode = AppEncrypt.EncryptText(aLoginUser.OrgCode);
             aLoginUser.LoginEmail = AppEncrypt.EncryptText(aLoginUser.LoginEmail);
             aLoginUser.LoginPass = AppEncrypt.EncryptText(aLoginUser.LoginPass);
             string serializedUser = JsonSerializer.Serialize(aLoginUser);

@@ -1,3 +1,5 @@
+
+
 namespace Xpenser.Models
 {
 	public class AppUser
@@ -16,7 +18,7 @@ namespace Xpenser.Models
 		public string PasswordHash { get; set; }
 		public string ConfirmPassword { get; set; }
 		public string MobileNo	{ get; set; }
-		public bool Verified { get; set; }
+		public bool IsVerified { get; set; }
 		public string Role	{ get; set; }
 		public long ProfilePicId { get; set; }		
 		public string ProfilePicPath { get; set; }

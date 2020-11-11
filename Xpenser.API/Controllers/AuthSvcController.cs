@@ -12,7 +12,7 @@ using Xpenser.Models;
 namespace Xpenser.API.Controllers
 {
     [Route("[controller]")]
-    public class AuthSvcController : ControllerBase
+    public class AuthSvcController : Controller
     {
         private readonly IAppUserRepository UserRepo;
         private readonly ILoggerManager AppLogger;
@@ -42,7 +42,6 @@ namespace Xpenser.API.Controllers
                 if (vCheckUserByEmail != null) return BadRequest("User with this Email already present use login or Forgot Password (if you had forgotten the password) ");
                 var vCheckUserByMobile = UserRepo.GetUserByMobile(vNewUser.MobileNo);
                 if (vCheckUserByMobile != null) return BadRequest("User with this Phone No already present use login or Forgot Password (if you had forgotten the password) ");
-
                 vNewUser.PasswordHash = AppEncrypt.CreateHash(vNewUser.PasswordHash);
                 var iNewUserId = UserRepo.InsertToGetId(vNewUser);
                 if (iNewUserId >0)

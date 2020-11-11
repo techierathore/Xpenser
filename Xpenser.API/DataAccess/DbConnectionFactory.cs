@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Xpenser.API.DataAccess
 {

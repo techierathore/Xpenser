@@ -22,7 +22,7 @@ CREATE PROCEDURE `AppUserInsert`(
 	IN pEmailID varchar(355),
 	IN pPasswordHash varchar(35),
 	IN pMobileNo varchar(35),
-	IN pVerified tinyint(1),
+	IN pVerified bit(1),
 	IN pRole varchar(55),
 	OUT pInsertedId bigint  
 )
@@ -48,7 +48,7 @@ CREATE PROCEDURE `AppUserUpdate`(
   pEmailID varchar(355),
   pPasswordHash varchar(35),
   pMobileNo varchar(35),
-  pVerified tinyint(1),
+  pVerified bit(1),
   pRole varchar(55)
 )
 BEGIN

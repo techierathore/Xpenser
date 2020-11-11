@@ -1,8 +1,8 @@
 ﻿@layout LoginLayout
-
+@page "/"
 @inherits LoginBase
 
-<EditForm Model="@LoginDetails">
+<EditForm Model="@LoginDetails" OnValidSubmit="@ValidateUser">
     <div>
         <br /><br /><br /><br /><br />
     </div>

@@ -6,7 +6,7 @@ BEGIN
 
 SELECT `LoginId`,`UserId`,`LoginDate`,`LoginToken`,
 	`TokenStatus`,`ExipryDate`, `IssueDate`
-FROM UserLogins WHERE `UserId` = pUserId AND `LoginToken`=pLoginToken;
+FROM UserLogin WHERE `UserId` = pUserId AND `LoginToken`=pLoginToken;
 
 END;
 
@@ -18,7 +18,7 @@ CREATE PROCEDURE `UserLoginsInsert`(
 )
 BEGIN
 
-INSERT INTO UserLogins
+INSERT INTO UserLogin
 (
 	`UserId`,`LoginDate`,`LoginToken`,`TokenStatus`,
 	`ExipryDate`,`IssueDate`

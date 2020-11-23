@@ -3,7 +3,7 @@ BEGIN
 
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`, `ProfilePicId`
+  `IsVerified`, `Role`, `ProfilePicId`
 FROM AppUser;
 
 END;
@@ -12,7 +12,7 @@ CREATE PROCEDURE `AppUserSelect`(pAppUserId long)
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`, `ProfilePicId`
+  `IsVerified`, `Role`, `ProfilePicId`
 FROM AppUser  WHERE `AppUserId` = pAppUserId;
 END;
 
@@ -22,7 +22,7 @@ CREATE PROCEDURE `AppUserInsert`(
 	IN pEmailID varchar(355),
 	IN pPasswordHash varchar(35),
 	IN pMobileNo varchar(35),
-	IN pVerified bit(1),
+	IN pIsVerified bit(1),
 	IN pRole varchar(55),
 	OUT pInsertedId bigint  
 )
@@ -31,12 +31,12 @@ BEGIN
 INSERT INTO AppUser
 (
   `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`
+  `IsVerified`, `Role`
 )
 VALUES
 (
 	pFirstName, pLastName, pEmailID, pPasswordHash, pMobileNo,
-	pVerified, pRole
+	pIsVerified, pRole
 );
 SELECT LAST_INSERT_ID() INTO pInsertedId;
 END;
@@ -48,7 +48,7 @@ CREATE PROCEDURE `AppUserUpdate`(
   pEmailID varchar(355),
   pPasswordHash varchar(35),
   pMobileNo varchar(35),
-  pVerified bit(1),
+  pIsVerified bit(1),
   pRole varchar(55)
 )
 BEGIN
@@ -56,7 +56,7 @@ UPDATE AppUser
 SET 
 	`FirstName`= pFirstName, `LastName`=pLastName,
 	`EmailID` = pEmailID,`PasswordHash` = pPasswordHash,
-	`MobileNo` = pMobileNo,`Verified` = pVerified,
+	`MobileNo` = pMobileNo,`IsVerified` = pIsVerified,
 	`Role` = pRole
 WHERE `AppUserId` = pAppUserId;
 
@@ -66,7 +66,7 @@ CREATE PROCEDURE `ValidateLogin`(pEmail varchar(255), pPasswordHash varchar(255)
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`, `ProfilePicId`
+  `IsVerified`, `Role`, `ProfilePicId`
 FROM AppUser  
 WHERE `EmailID` = pEmail AND `PasswordHash` = pPasswordHash;
 END;
@@ -75,7 +75,7 @@ CREATE PROCEDURE `AppUserByEmail`(pEmailID varchar(355))
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`, `ProfilePicId`
+  `IsVerified`, `Role`, `ProfilePicId`
 FROM AppUser  WHERE `EmailID` = pEmailID;
 END;
 
@@ -83,6 +83,6 @@ CREATE PROCEDURE `AppUserByMobile`(pMobileNo varchar(355))
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `EmailID`, `PasswordHash`, `MobileNo`,
-  `Verified`, `Role`, `ProfilePicId`
+  `IsVerified`, `Role`, `ProfilePicId`
 FROM AppUser  WHERE `MobileNo` = pMobileNo;
 END;

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Xpenser.Models;
 using Xpenser.UI;
 using Xpenser.UI.Services;
 using Xpenser.Web.ErrorLogging;
@@ -27,13 +28,12 @@ namespace Xpenser.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-.AddBlazorise(options =>
-{
-options.ChangeTextOnKeyPress = true;
-})
-.AddBootstrapProviders()
-.AddFontAwesomeIcons();
+            services.AddBlazorise(options =>
+                    {
+                    options.ChangeTextOnKeyPress = true;
+                    })
+                    .AddBootstrapProviders()
+                    .AddFontAwesomeIcons();
             services.AddRazorPages();
             services.AddServerSideBlazor()
                     .AddHubOptions(o => { o.MaximumReceiveMessageSize = 10 * 1024 * 1024; })
@@ -45,6 +45,8 @@ options.ChangeTextOnKeyPress = true;
             services.AddBlazoredLocalStorage();
             services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
             services.AddHttpClient<IAuthService, AuthService>();
+            services.AddHttpClient<IManageService<Account>, ManageService<Account>>()
+                    .AddHttpMessageHandler<ValidateHeaderHandler>();
 
         }
 

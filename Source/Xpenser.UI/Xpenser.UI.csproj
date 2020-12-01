@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\site.css" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
@@ -30,6 +29,8 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Common\" />
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="Pages\Manage\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,6 +28,7 @@ namespace Xpenser.API.DataAccess
         public abstract TEntity GetSingle(long aSingleId);
         public abstract TEntity GetIntSingle(int aSingleId);
         public abstract void Insert(TEntity entity);
+        public abstract long InsertToGetId(TEntity entity);
         public abstract void Update(TEntity entityToUpdate);
     }
 }

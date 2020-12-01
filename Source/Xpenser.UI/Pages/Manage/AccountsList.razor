@@ -1,0 +1,36 @@
+﻿@page "/AccList"
+<ConentPanel PanelTitle="Accounts List">
+    <RightSesction>
+        <NavLink class="btn btn-primary" href="ManageAccount">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Add New
+        </NavLink>
+    </RightSesction>
+    <PanelContent>
+        @if (ObjectList == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <DataGrid TItem="Account" Data="@ObjectList" Editable="false" Sortable="true" Filterable="false"
+                      ShowPager="true" UseInternalEditing="false" @bind-SelectedRow="@SelObject"
+                      Striped="false" Bordered="false" Hoverable="true" Responsive="true" PageSize="15">
+                <DataGridColumns>
+                    <DataGridColumn TItem="Account" Field="@nameof(Account.AcNumber)" Caption="Account No" />
+                    <DataGridColumn TItem="Account" Field="@nameof(Account.AcccountName)" Caption="Name" />
+                    <DataGridColumn TItem="Account" Field="@nameof(Account.AcType)" Caption="Type" />
+                    <DataGridDateColumn TItem="Account" Field="@nameof( Account.StartDate )" DisplayFormat="{0:MM/dd/yyyy}" Caption="Start Date" />
+                    <DataGridColumn TItem="Account" Field="@nameof(Account.AccountId)">
+                        <DisplayTemplate>
+                            <a class="btn btn-secondary table-btn"
+                               href="/ManageAccount/@context.AccountId">
+                                <i class="material-icons">person</i>
+                            </a>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        }
+    </PanelContent>
+</ConentPanel>

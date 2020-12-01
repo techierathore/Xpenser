@@ -5,7 +5,6 @@
         <LayoutSiderContent>
             <Bar Breakpoint="Breakpoint.Desktop"
                  NavigationBreakpoint="Breakpoint.Tablet" 
-                 ThemeContrast="ThemeContrast.Dark" 
                  Mode="BarMode.VerticalInline" 
                  CollapseMode="BarCollapseMode.Small" 
                  @bind-Visible="siderVisible">
@@ -31,14 +30,14 @@
                                     Manage
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
-                                    <BarDropdownItem To="Account">
+                                    <BarDropdownItem To="AccList">
                                         Accounts
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="FixedTrans">
-                                        Fixed Transactions
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="ExpCategory">
+                                    <BarDropdownItem To="ExpCatList">
                                         Expense Category
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="FixedTransList">
+                                        Fixed Transactions
                                     </BarDropdownItem>
                                 </BarDropdownMenu>
                             </BarDropdown>
@@ -90,9 +89,7 @@
         <LayoutHeader Fixed="true">
             <Bar Style="height: 64px;" 
                  Breakpoint="Breakpoint.Desktop" 
-                 Background="Background.Primary" 
-                 ThemeContrast="ThemeContrast.Light">
-
+                 Background="Background.Primary">
                 <BarToggler Clicked="@ToggleSidebar" Style="display:block" />
                 <BarBrand>
                     <BarItem>

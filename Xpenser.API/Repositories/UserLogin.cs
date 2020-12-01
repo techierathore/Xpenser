@@ -33,7 +33,8 @@ namespace Xpenser.API.Repositories
         {
             throw new System.NotImplementedException();
         }
-
+        public override long InsertToGetId(UserLogin aEntity)
+        { throw new System.NotImplementedException(); }
         public override void Insert(UserLogin aEntity)
         {
             using var vConn = GetOpenConnection();

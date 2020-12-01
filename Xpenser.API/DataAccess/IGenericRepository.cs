@@ -6,6 +6,7 @@ namespace Xpenser.API.DataAccess
     public interface IGenericRepository<TEntity>
     {
         IDbConnection GetOpenConnection();
+        long InsertToGetId(TEntity aEntity);
         void Insert(TEntity aEntity);
         void Update(TEntity aEntityToUpdate);
         TEntity GetSingle(long aSingleId);

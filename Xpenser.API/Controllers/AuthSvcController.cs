@@ -78,7 +78,7 @@ namespace Xpenser.API.Controllers
                 return BadRequest(ex);
             }
         }
-
+       
         [HttpPost("AppLogin")]
         public IActionResult AppLogin([FromBody] SvcData aLoginData)
         {
@@ -174,7 +174,6 @@ namespace Xpenser.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
 
     }
 }

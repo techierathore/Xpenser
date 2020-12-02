@@ -17,4 +17,6 @@ namespace Xpenser.API.Repositories
     }
     public interface IAccountRepository : IGenericRepository<Account>
     { }
+    public interface ICategoryRepository : IGenericRepository<Category>
+    { }
 }

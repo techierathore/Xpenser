@@ -93,14 +93,15 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\2213618-AllTableScript.sql" />
+    <EmbeddedResource Include="Scripts\1-AllTableScript.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="app.config" />
-    <None Include="Scripts\221151144-AppUserSPs.sql" />
-    <None Include="Scripts\221111111-UserLoginSPs.sql" />
-    <None Include="Scripts\22121845-AccountSPs.sql" />
+    <None Include="Scripts\2-AppUserSPs.sql" />
+    <None Include="Scripts\3-UserLoginSPs.sql" />
+    <None Include="Scripts\4-AccountSPs.sql" />
+    <None Include="Scripts\5-CategorySPs.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,6 +47,8 @@ namespace Xpenser.Web
             services.AddHttpClient<IAuthService, AuthService>();
             services.AddHttpClient<IManageService<Account>, ManageService<Account>>()
                     .AddHttpMessageHandler<ValidateHeaderHandler>();
+            services.AddHttpClient<IManageService<Category>, ManageService<Category>>()
+                    .AddHttpMessageHandler<ValidateHeaderHandler>();
 
         }
 

@@ -30,6 +30,7 @@ namespace Xpenser.API
             services.AddTransient<IUserLoginRepository>(x => new UserLoginRepo(sConString));
             services.AddTransient<IAppUserRepository>(x => new AppUserRepo(sConString));
             services.AddTransient<IAccountRepository>(x => new AccountRepo(sConString));
+            services.AddTransient<ICategoryRepository>(x => new CategoryRepo(sConString));
             services.AddControllers();
 
             var key = Encoding.ASCII.GetBytes(AppConstants.JWTTokenGenKey);

@@ -9,6 +9,8 @@ namespace Xpenser.Models
 		public long ParentId	{ get; set; }
 		public long IconPicId { get; set; }
 		public string IconPath	{ get; set; }
-
+		public long AppUserId { get; set; }
+		public string Creator { get; set; }
+		public string ParentName { get; set; }
 	}
 }

@@ -28,6 +28,7 @@ CREATE TABLE `Category` (
 	`CategoryName` varchar(255) NOT NULL,
 	`CategoryDescription` longtext,
 	`ParentId` bigint NOT NULL,
+	`AppUserId` bigint(20) DEFAULT NULL,
 	`IconPicId` bigint,
 	PRIMARY KEY (`CategoryId`)
 );

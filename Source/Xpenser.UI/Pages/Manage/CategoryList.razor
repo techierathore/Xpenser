@@ -1,0 +1,36 @@
+﻿@page "/ExpCatList"
+<ConentPanel PanelTitle="Expense Category List">
+    <RightSesction>
+        <NavLink class="btn btn-primary" href="ManageCategory">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Add New
+        </NavLink>
+    </RightSesction>
+    <PanelContent>
+        @if (ObjectList == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <DataGrid TItem="Category" Data="@ObjectList" Editable="false" Sortable="true" Filterable="false"
+                      ShowPager="true" UseInternalEditing="false" @bind-SelectedRow="@SelObject"
+                      Striped="false" Bordered="false" Hoverable="true" Responsive="true" PageSize="15">
+                <DataGridColumns>
+                    <DataGridColumn TItem="Category" Field="@nameof(Category.CategoryName)" Caption="Name" />
+                    <DataGridColumn TItem="Category" Field="@nameof(Category.CategoryDescription)" Caption="Description" />
+                    <DataGridColumn TItem="Category" Field="@nameof(Category.ParentName)" Caption="Parent" />
+                    <DataGridColumn TItem="Category" Field="@nameof(Category.Creator)" Caption="Created By" />
+                    <DataGridColumn TItem="Category" Field="@nameof(Category.CategoryId)">
+                        <DisplayTemplate>
+                            <a class="btn btn-secondary table-btn"
+                               href="/ManageCategory/@context.CategoryId">
+                                <i class="material-icons">person</i>
+                            </a>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        }
+    </PanelContent>
+</ConentPanel>

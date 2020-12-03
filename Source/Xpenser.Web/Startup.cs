@@ -45,6 +45,8 @@ namespace Xpenser.Web
             services.AddBlazoredLocalStorage();
             services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
             services.AddHttpClient<IAuthService, AuthService>();
+
+
             services.AddHttpClient<IManageService<Account>, ManageService<Account>>()
                     .AddHttpMessageHandler<ValidateHeaderHandler>();
             services.AddHttpClient<IManageService<Category>, ManageService<Category>>()

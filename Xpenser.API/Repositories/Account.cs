@@ -9,6 +9,8 @@ namespace Xpenser.API.Repositories
     public class AccountRepo : MariaDbRepository<Account>, IAccountRepository
     {
         public AccountRepo(string connectionString) : base(connectionString) { }
+        public override IEnumerable<Account> GetAllById(long aSingleId)
+        { throw new System.NotImplementedException(); }
 
         public override IEnumerable<Account> GetAll()
         {

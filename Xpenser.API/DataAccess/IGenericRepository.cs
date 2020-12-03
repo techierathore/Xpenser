@@ -12,5 +12,6 @@ namespace Xpenser.API.DataAccess
         TEntity GetSingle(long aSingleId);
         TEntity GetIntSingle(int aSingleId);
         IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAllById(long aSingleId);
     }
 }

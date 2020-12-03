@@ -9,7 +9,8 @@ namespace Xpenser.API.Repositories
     public class CategoryRepo : MariaDbRepository<Category>, ICategoryRepository
     {
         public CategoryRepo(string connectionString) : base(connectionString) { }
-
+        public override IEnumerable<Category> GetAllById(long aSingleId)
+        { throw new System.NotImplementedException(); }
         public override IEnumerable<Category> GetAll()
         {
             using var vConn = GetOpenConnection();

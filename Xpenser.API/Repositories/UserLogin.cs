@@ -9,7 +9,8 @@ namespace Xpenser.API.Repositories
     public class UserLoginRepo : MariaDbRepository<UserLogin>, IUserLoginRepository
     {
         public UserLoginRepo(string connectionString) : base(connectionString) { }
-
+        public override IEnumerable<UserLogin> GetAllById(long aSingleId)
+        { throw new System.NotImplementedException(); }
         public override IEnumerable<UserLogin> GetAll()
         {
             using var vConn = GetOpenConnection();

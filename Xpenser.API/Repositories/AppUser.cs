@@ -11,6 +11,8 @@ namespace Xpenser.API.Repositories
     {
         public AppUserRepo(string connectionString) : base(connectionString) { }
 
+        public override IEnumerable<AppUser> GetAllById(long aSingleId)
+        { throw new System.NotImplementedException(); }
         public override IEnumerable<AppUser> GetAll()
         {
             using var vConn = GetOpenConnection();

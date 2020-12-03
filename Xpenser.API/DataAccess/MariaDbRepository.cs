@@ -24,11 +24,13 @@ namespace Xpenser.API.DataAccess
         {
             return DbConnectionFactory.GetDbConnection(_dbType, _connectionString);
         }
+        public abstract IEnumerable<TEntity> GetAllById(long aSingleId);
         public abstract IEnumerable<TEntity> GetAll();
         public abstract TEntity GetSingle(long aSingleId);
         public abstract TEntity GetIntSingle(int aSingleId);
         public abstract void Insert(TEntity entity);
         public abstract long InsertToGetId(TEntity entity);
         public abstract void Update(TEntity entityToUpdate);
+
     }
 }

@@ -12,4 +12,9 @@ namespace Xpenser.UI
     {
         public Stream DocFile { get; set; }
     }
+    public class AccountType
+    {
+        public string AccountName { get; set; }
+        public string AccounValue { get; set; }
+    }
 }

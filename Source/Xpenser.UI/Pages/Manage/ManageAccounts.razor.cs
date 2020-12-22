@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,6 +26,9 @@ namespace Xpenser.UI.Pages.Manage
         [CascadingParameter]
         private Task<AuthenticationState> AuthStateTask { get; set; }
         ClaimsPrincipal LoggedInUser;
+        string SelectedAccountType;
+
+        public List<AccountType> AccountList { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -33,6 +37,8 @@ namespace Xpenser.UI.Pages.Manage
                 {
                     PageHeader = "Edit Account";
                     PageObj = await DataService.GetSingleAsync(GetObjectServiceUrl, PageId);
+                    SelectedAccountType = PageObj.AcType;
+                    AccountList = GetAccountTypes();
                 }
                 else ResetPage();
                 StateHasChanged();
@@ -44,6 +50,7 @@ namespace Xpenser.UI.Pages.Manage
         {
             PageHeader = "Add Account";
             PageObj = new Account();
+            AccountList = GetAccountTypes();
             StateHasChanged();
         }
 
@@ -63,6 +70,23 @@ namespace Xpenser.UI.Pages.Manage
                  _ = await DataService.SaveAsync(CreateServiceUrl, PageObj); }
 
             AppNavManager.NavigateTo(ListPageUrl);
+        }
+     
+        void OnSelectedValueChangedAccount(object value)
+        {
+            SelectedAccountType=value.ToString();
+            PageObj.AcType = SelectedAccountType;
+        }
+
+        public List<AccountType> GetAccountTypes()
+        {
+            List<AccountType> Accounts = new List<AccountType>() {
+                new AccountType { AccountName = "Saving", AccounValue = "Saving" },
+                new AccountType { AccountName = "Current", AccounValue = "Current" },
+                new AccountType { AccountName = "Card", AccounValue = "Card" },
+             };       
+          
+            return Accounts;
         }
     }
 }

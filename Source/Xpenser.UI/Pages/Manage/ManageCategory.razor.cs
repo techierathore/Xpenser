@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,6 +19,9 @@ namespace Xpenser.UI.Pages.Manage
         public IManageService<Category> DataService { get; set; }
         public string PageHeader { get; set; }
         public Category PageObj { get; set; }
+        public IEnumerable<Category> CategoryList { get; set; }
+
+        long SubCatId;
         protected const string GetObjectServiceUrl = "CategorySvc/GetSingleCategory/";
         protected const string CreateServiceUrl = "CategorySvc/CreateCategory";
         protected const string UpdateServiceUrl = "CategorySvc/UpdateCategory";
@@ -33,17 +37,22 @@ namespace Xpenser.UI.Pages.Manage
                 {
                     PageHeader = "Edit Expense Category";
                     PageObj = await DataService.GetSingleAsync(GetObjectServiceUrl, PageId);
+                    SubCatId = PageObj.ParentId;
+                    var Categories = await DataService.GetAllAsync(ClientConstants.CatListSvcUrl);
+                    CategoryList = Categories.Select(x => new Category { CategoryName = x.CategoryName, CategoryId = x.CategoryId });
                 }
-                else ResetPage();
+                else await ResetPage();
                 StateHasChanged();
             }
         }
 
 
-        private void ResetPage()
+        private async Task ResetPage()
         {
             PageHeader = "Add Expense Category";
             PageObj = new Category();
+            var Categories = await DataService.GetAllAsync(ClientConstants.CatListSvcUrl);
+            CategoryList = Categories.Select(x => new Category { CategoryName = x.CategoryName, CategoryId = x.CategoryId });
             StateHasChanged();
         }
 
@@ -59,11 +68,19 @@ namespace Xpenser.UI.Pages.Manage
                     c => c.Type == ClaimTypes.PrimarySid)?.Value;
                 long lEmployeeId = Convert.ToInt64(vEmpId);
                 PageObj.AppUserId = lEmployeeId;
-                PageObj.ParentId = 0;
+               // PageObj.ParentId = 0;
                 _ = await DataService.SaveAsync(CreateServiceUrl, PageObj);
             }
 
             AppNavManager.NavigateTo(ListPageUrl);
         }
+
+        void MyListValueChangedHandler(object newValue)
+        {
+            SubCatId = Convert.ToInt64(newValue);
+            PageObj.ParentId = SubCatId;
+
+        }
+
     }
 }

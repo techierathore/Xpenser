@@ -1,15 +1,9 @@
 ﻿@page "/ManageCategory"
 @page "/ManageCategory/{PageId:long}"
+
 <ConentPanel PanelTitle=@PageHeader>
     <RightSesction>
-        <button @onclick="SaveData" class="btn btn-primary">
-            <span class="oi oi-plus" aria-hidden="true"></span> Save
-        </button>
-        &nbsp;&nbsp;
-        <NavLink class="btn btn-primary" href="PropContactsList">
-            <span class="oi oi-x" aria-hidden="true"></span>
-            Close
-        </NavLink>
+
     </RightSesction>
     <PanelContent>
         <div class="col-12">
@@ -26,20 +20,35 @@
                             <Fields>
                                 <Validation Validator="@ValidationRule.IsNotEmpty">
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                        <FieldLabel ColumnSize="ColumnSize.Is3">Category Name</FieldLabel>
-                                        <FieldBody ColumnSize="ColumnSize.Is9">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Category Name</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
                                             <input class="form-control" @bind="PageObj.CategoryName" placeholder="Category Name" />
                                         </FieldBody>
                                     </Field>
                                 </Validation>
                                 <Validation Validator="@ValidationRule.IsNotEmpty">
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                        <FieldLabel ColumnSize="ColumnSize.Is3">Description</FieldLabel>
-                                        <FieldBody ColumnSize="ColumnSize.Is9">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Description</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
                                             <input class="form-control" @bind="PageObj.CategoryDescription" placeholder="Description" />
                                         </FieldBody>
                                     </Field>
                                 </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Parent Category</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <SelectList Data="@CategoryList"
+                                                        TextField="@((item)=>item.CategoryName)"
+                                                        ValueField="@((item)=>item.CategoryId)"
+                                                        SelectedValue="@SubCatId"
+                                                        SelectedValueChanged="@MyListValueChangedHandler" />
+
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+
+
                             </Fields>
                         </CardBody>
                     </fieldset>
@@ -47,5 +56,15 @@
             }
 
         </div>
+        &nbsp;&nbsp;
+        <button @onclick="SaveData" class="btn btn-primary">
+            <span class="oi oi-plus" aria-hidden="true"></span> Save
+        </button>
+        &nbsp;&nbsp;
+        <NavLink class="btn btn-primary" href="ExpCatList">
+            <span class="oi oi-x" aria-hidden="true"></span>
+            Close
+        </NavLink>
     </PanelContent>
 </ConentPanel>
+

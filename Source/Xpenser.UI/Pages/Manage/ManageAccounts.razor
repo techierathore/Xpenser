@@ -1,65 +1,72 @@
 ﻿@page "/ManageAccount"
 @page "/ManageAccount/{PageId:long}"
-<ConentPanel PanelTitle=@PageHeader>
-    <RightSesction>
-        <button @onclick="SaveData" class="btn btn-primary">
-            <span class="oi oi-plus" aria-hidden="true"></span> Save
-        </button>
-        &nbsp;&nbsp;
-        <NavLink class="btn btn-primary" href="PropContactsList">
-            <span class="oi oi-x" aria-hidden="true"></span>
-            Close
-        </NavLink>
-    </RightSesction>
-    <PanelContent>
-        <div class="col-12">
-            @if (PageObj == null)
-            {
-                <p><em>Loading...</em></p>
-            }
-            else
-            {
-                <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
-                    <DataAnnotationsValidator />
-                    <fieldset>
-                        <CardBody>
-                            <Fields>
-                                <Validation Validator="@ValidationRule.IsNotEmpty">
-                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                        <FieldLabel ColumnSize="ColumnSize.Is3">Account Number</FieldLabel>
-                                        <FieldBody ColumnSize="ColumnSize.Is9">
-                                            <input class="form-control" @bind="PageObj.AcNumber" placeholder="Account Number" />
-                                        </FieldBody>
-                                    </Field>
-                                </Validation>
-                                <Validation Validator="@ValidationRule.IsNotEmpty">
-                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                        <FieldLabel ColumnSize="ColumnSize.Is3">Account Name</FieldLabel>
-                                        <FieldBody ColumnSize="ColumnSize.Is9">
-                                            <input class="form-control" @bind="PageObj.AcccountName" placeholder="Account Name" />
-                                        </FieldBody>
-                                    </Field>
-                                </Validation>
-                            </Fields>
-                            <Fields>
-                                <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                    <FieldLabel ColumnSize="ColumnSize.Is3">Account Type</FieldLabel>
-                                    <FieldBody ColumnSize="ColumnSize.Is9">
-                                        <input class="form-control" @bind="PageObj.AcType" placeholder="Account Type" />
-                                    </FieldBody>
-                                </Field>
-                                <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
-                                    <FieldLabel ColumnSize="ColumnSize.Is3">Opening Balance</FieldLabel>
-                                    <FieldBody ColumnSize="ColumnSize.Is9">
-                                        <input class="form-control" @bind="PageObj.OpenBal" placeholder="Opening Balance" />
-                                    </FieldBody>
-                                </Field>
-                            </Fields>                      
-                        </CardBody>
-                    </fieldset>
-                </EditForm>
-            }
+    
 
-        </div>
-    </PanelContent>
-</ConentPanel>
+    <ConentPanel PanelTitle=@PageHeader>
+        <RightSesction>
+          
+        </RightSesction>
+        <PanelContent>
+            <div class="col-12">
+                @if (PageObj == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
+                        <DataAnnotationsValidator />
+                        <fieldset>
+                            <CardBody>
+                                <Fields>
+                                    <Validation Validator="@ValidationRule.IsNotEmpty">
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Account Number</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is12">
+                                                <input class="form-control" @bind="PageObj.AcNumber" placeholder="Account Number" />
+                                            </FieldBody>
+                                        </Field>
+                                    </Validation>
+                                    <Validation Validator="@ValidationRule.IsNotEmpty">
+                                        <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                            <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Account Name</FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is12">
+                                                <input class="form-control" @bind="PageObj.AcccountName" placeholder="Account Name" />
+                                            </FieldBody>
+                                        </Field>
+                                    </Validation>
+                                </Fields>
+                                <Fields>
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Account Type</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <SelectList Data="@AccountList"
+                                                        TextField="@((item)=>item.AccountName)"
+                                                        ValueField="@((item)=>item.AccounValue)"
+                                                        SelectedValue="@SelectedAccountType"
+                                                        SelectedValueChanged="@OnSelectedValueChangedAccount" />
+                                        </FieldBody>
+                                    </Field>
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Opening Balance</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.OpenBal" placeholder="Opening Balance" />
+                                        </FieldBody>
+                                    </Field>
+                                </Fields>
+                            </CardBody>
+                        </fieldset>
+                    </EditForm>
+                }
+                &nbsp;&nbsp;
+                <button @onclick="SaveData" class="btn btn-primary">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Save
+                </button>
+                &nbsp;&nbsp;
+                <NavLink class="btn btn-primary" href="AccList">
+                    <span class="oi oi-x" aria-hidden="true"></span>
+                    Close
+                </NavLink>
+            </div>
+        </PanelContent>
+    </ConentPanel>

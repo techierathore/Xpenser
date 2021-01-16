@@ -11,7 +11,7 @@ namespace Xpenser.DbMigration
         {
             var connectionString =
                 args.FirstOrDefault()
-                ?? "host=localhost;port=3306;user id=root;database=Xpenser;";
+                ?? "host=192.168.29.98;port=32768;user id=root;database=Xpenser;";
             EnsureDatabase.For.MySqlDatabase(connectionString);
             var upgrader = DeployChanges.To
                 .MySqlDatabase(connectionString)

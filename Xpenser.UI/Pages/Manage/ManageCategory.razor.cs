@@ -75,9 +75,9 @@ namespace Xpenser.UI.Pages.Manage
             AppNavManager.NavigateTo(ListPageUrl);
         }
 
-        void MyListValueChangedHandler(object newValue)
+        void MyListValueChangedHandler(long newValue)
         {
-            SubCatId = Convert.ToInt64(newValue);
+            //SubCatId = Convert.ToInt64(newValue);
             PageObj.ParentId = SubCatId;
 
         }

@@ -72,9 +72,9 @@ namespace Xpenser.UI.Pages.Manage
             AppNavManager.NavigateTo(ListPageUrl);
         }
      
-        void OnSelectedValueChangedAccount(object value)
+        void OnSelectedValueChangedAccount(string value)
         {
-            SelectedAccountType=value.ToString();
+            //SelectedAccountType=value.ToString();
             PageObj.AcType = SelectedAccountType;
         }
 

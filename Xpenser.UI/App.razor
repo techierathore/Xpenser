@@ -4,12 +4,14 @@
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         </Found>
         <NotFound>
-            <CascadingAuthenticationState>
-                <LayoutView Layout="@typeof(MainLayout)">
-                    <h1>404 Error</h1>
-                    <p>Sorry, there's nothing at this address.</p>
-                </LayoutView>
-            </CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    <LayoutView Layout="@typeof(MainLayout)">
+                        <h1>404 Error</h1>
+                        <p>Sorry, there's nothing at this address.</p>
+                    </LayoutView>
+                </Authorized>                
+            </AuthorizeView>            
         </NotFound>
     </Router>
 </Blazorise.ThemeProvider>

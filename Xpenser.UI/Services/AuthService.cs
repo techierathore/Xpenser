@@ -29,23 +29,29 @@ namespace Xpenser.UI.Services
 
         public async Task<AppUser> LoginAsync(SvcData aLoginUser)
         {
-            aLoginUser.LoginEmail = AppEncrypt.EncryptText(aLoginUser.LoginEmail);
-            aLoginUser.LoginPass = AppEncrypt.EncryptText(aLoginUser.LoginPass);
-            string serializedUser = JsonSerializer.Serialize(aLoginUser);
-
-            var vRequestMessage = new HttpRequestMessage(HttpMethod.Post, LoginSvcUrl)
+            try
             {
-                Content = new StringContent(serializedUser)
-            };
-            vRequestMessage.Content.Headers.ContentType
-                = new System.Net.Http.Headers.MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
+                aLoginUser.LoginEmail = AppEncrypt.EncryptText(aLoginUser.LoginEmail);
+                aLoginUser.LoginPass = AppEncrypt.EncryptText(aLoginUser.LoginPass);
+                string serializedUser = JsonSerializer.Serialize(aLoginUser);
 
-            var vSvcResponse = await SvcClient.SendAsync(vRequestMessage);
-            var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
-            SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
-            string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
-            return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
-        }
+                var vRequestMessage = new HttpRequestMessage(HttpMethod.Post, LoginSvcUrl)
+                {
+                    Content = new StringContent(serializedUser)
+                };
+                vRequestMessage.Content.Headers.ContentType
+                    = new System.Net.Http.Headers.MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
+
+                var vSvcResponse = await SvcClient.SendAsync(vRequestMessage);
+                var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
+                SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
+                string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
+                return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
+
+            }
+            catch (Exception ex)
+            { throw ex; }
+         }
 
         public async Task<AppUser> RegisterUserAsync(SvcData aLoginUser)
         {

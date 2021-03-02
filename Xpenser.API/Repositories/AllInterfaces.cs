@@ -19,4 +19,6 @@ namespace Xpenser.API.Repositories
     { }
     public interface ICategoryRepository : IGenericRepository<Category>
     { }
+    public interface IReccuringTransactionRepository : IGenericRepository<ReccuringTransaction>
+    { }
 }

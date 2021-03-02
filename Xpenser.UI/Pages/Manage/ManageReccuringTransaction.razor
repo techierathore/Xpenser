@@ -1,0 +1,87 @@
+﻿@page "/ManageReccuringTransaction"
+@page "/ManageReccuringTransaction/{PageId:long}"
+
+<ConentPanel PanelTitle=@PageHeader>
+    <RightSesction>
+
+    </RightSesction>
+    <PanelContent>
+        <div class="col-12">
+            @if (PageObj == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
+                    <DataAnnotationsValidator />
+                    <fieldset>
+                        <CardBody>
+                            <Fields>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Transaction Name</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TransName" placeholder="Transaction Name" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Description</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TransDescription" placeholder="Description" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Transaction Type</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TransType" placeholder="Transaction Type" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Amount</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.Amount" placeholder="Amount" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Day Of Month</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.DayOfMonth" placeholder="Day Of Month" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Occurence</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.Occurance" placeholder="Occurence" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                            </Fields>
+                        </CardBody>
+                    </fieldset>
+                </EditForm>
+            }
+
+        </div>
+        &nbsp;&nbsp;
+        <button @onclick="SaveData" class="btn btn-primary">
+            <span class="oi oi-plus" aria-hidden="true"></span> Save
+        </button>
+        &nbsp;&nbsp;
+        <NavLink class="btn btn-primary" href="FixedTransList">
+            <span class="oi oi-x" aria-hidden="true"></span>
+            Close
+        </NavLink>
+    </PanelContent>
+</ConentPanel>
+

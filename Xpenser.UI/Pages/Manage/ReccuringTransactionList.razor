@@ -1,0 +1,38 @@
+﻿@page "/FixedTransList"
+<ConentPanel PanelTitle="Reccuring Transaction List">
+    <RightSesction>
+        <NavLink class="btn btn-primary" href="ManageReccuringTransaction">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Add New
+        </NavLink>
+    </RightSesction>
+    <PanelContent>
+        @if (ObjectList == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <DataGrid TItem="ReccuringTransaction" Data="@ObjectList" Editable="false" Sortable="true" Filterable="false"
+                      ShowPager="true" UseInternalEditing="false" @bind-SelectedRow="@SelObject"
+                      Striped="false" Bordered="false" Hoverable="true" Responsive="true" PageSize="15">
+                <DataGridColumns>
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.TransName)" Caption="Name" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.TransDescription)" Caption="Description" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.Amount)" Caption="Amount" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.DayOfMonth)" Caption="Day of month" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.Occurance)" Caption="Occurance" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.TransType)" Caption="Transaction type" />
+                    <DataGridColumn TItem="ReccuringTransaction" Field="@nameof(ReccuringTransaction.ReccurTransId)">
+                        <DisplayTemplate>
+                            <a class="btn btn-secondary table-btn"
+                               href="/ManageReccuringTransaction/@context.ReccurTransId">
+                                <i class="material-icons">create</i>
+                            </a>
+                        </DisplayTemplate>
+                    </DataGridColumn>
+                </DataGridColumns>
+            </DataGrid>
+        }
+    </PanelContent>
+</ConentPanel>

@@ -51,6 +51,8 @@ namespace Xpenser.Web
                     .AddHttpMessageHandler<ValidateHeaderHandler>();
             services.AddHttpClient<IManageService<Category>, ManageService<Category>>()
                     .AddHttpMessageHandler<ValidateHeaderHandler>();
+            services.AddHttpClient<IManageService<ReccuringTransaction>, ManageService<ReccuringTransaction>>()
+                   .AddHttpMessageHandler<ValidateHeaderHandler>();
 
         }
 

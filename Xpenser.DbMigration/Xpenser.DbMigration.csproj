@@ -89,7 +89,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\6-TargetSPs.sql" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\1-AllTableScript.sql" />
   </ItemGroup>

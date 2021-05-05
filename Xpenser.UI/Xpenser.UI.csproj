@@ -29,7 +29,7 @@
     <Folder Include="Common\" />
     <Folder Include="Services\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="Pages\Manage\" />
+	<Folder Include="Pages\Manage\" />
   </ItemGroup>
 
   <ItemGroup>

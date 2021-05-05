@@ -1,0 +1,98 @@
+﻿@page "/ManageTarget"
+@page "/ManageTarget/{PageId:long}"
+
+<ConentPanel PanelTitle=@PageHeader>
+    <RightSesction>
+
+    </RightSesction>
+    <PanelContent>
+        <div class="col-12">
+            @if (PageObj == null)
+            {
+                <p><em>No target found!</em></p>
+            }
+            else
+            {
+                <EditForm Model="@PageObj" OnValidSubmit="@SaveData">
+                    <DataAnnotationsValidator />
+                    <fieldset>
+                        <CardBody>
+                            <Fields>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Title</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TargetTitle" placeholder="Target Name" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Description</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TargetDescription" placeholder="Description" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+
+
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Entry Date</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.EntryDate" placeholder="Entry Date" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Target Date</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.TargetDate" placeholder="Target Date" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign"> Amount</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <input class="form-control" @bind="PageObj.Amount" placeholder="Amount" />
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+
+                                <Validation Validator="@ValidationRule.IsNotEmpty">
+                                    <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
+                                        <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Category</FieldLabel>
+                                        <FieldBody ColumnSize="ColumnSize.Is12">
+                                            <select id="categoryListId" name="catId" onchange="@OnCatagoryChanged">
+                                                <option>Select</option>
+                                                @foreach (var state in CategoryListData)
+                                                {
+                                                    <option value="@state.CategoryId">@state.CategoryName</option>
+                                                }
+                                            </select>
+
+                                        </FieldBody>
+                                    </Field>
+                                </Validation>
+                            </Fields>
+                        </CardBody>
+                    </fieldset>
+                </EditForm>
+            }
+
+        </div>
+        &nbsp;&nbsp;
+        <button onclick="@SaveData" class="btn btn-primary">
+            <span class="oi oi-plus" aria-hidden="true"></span> Save
+        </button>
+        &nbsp;&nbsp;
+        <NavLink class="btn btn-primary" href="TargetList">
+            <span class="oi oi-x" aria-hidden="true"></span>
+            Close
+        </NavLink>
+    </PanelContent>
+</ConentPanel>

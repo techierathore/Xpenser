@@ -21,4 +21,7 @@ namespace Xpenser.API.Repositories
     { }
     public interface IReccuringTransactionRepository : IGenericRepository<ReccuringTransaction>
     { }
+
+    public interface ITargetRepository : IGenericRepository<Target>
+    { }
 }

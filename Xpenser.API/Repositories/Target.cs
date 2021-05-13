@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Xpenser.API.DataAccess;
+using Xpenser.Models;
 
 namespace Xpenser.API.Repositories
 {
@@ -48,7 +52,7 @@ namespace Xpenser.API.Repositories
         {
             throw new System.NotImplementedException();
         }
-        public override void Update(Category aEntity)
+        public override void Update(Target aEntity)
         {
             using var vConn = GetOpenConnection();
             var vParams = new DynamicParameters();
@@ -61,6 +65,7 @@ namespace Xpenser.API.Repositories
             vParams.Add("@pAmount", aEntity.Amount);
             vParams.Add("@pAppUserId", aEntity.AppUserId);
             vConn.Execute("TargetUpdate", vParams, commandType: CommandType.StoredProcedure);
+
         }
     }
 }

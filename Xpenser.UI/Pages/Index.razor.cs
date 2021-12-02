@@ -20,7 +20,4 @@ namespace Xpenser.UI.Pages
                 IsUserAuthenticated = true;
         }
     }
-
-
-
 }

@@ -27,6 +27,12 @@ namespace Xpenser.API.Controllers
             AppLogger = aLogger;
         }
 
+        /// <summary>
+        /// This Method Will be used by the UI for Logging into 
+        /// the Application.
+        /// </summary>
+        /// <param name="aSignUpData"></param>
+        /// <returns>Object Containing Current Logged In User</returns>
         [HttpPost("AppSignUp")]
         public IActionResult AppSignUp([FromBody] SvcData aSignUpData)
         {

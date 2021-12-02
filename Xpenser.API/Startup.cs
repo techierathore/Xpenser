@@ -26,7 +26,7 @@ namespace Xpenser.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
-            string sConString = Configuration.GetConnectionString("Default");
+            string sConString = Configuration["AppDbConString"];
             services.AddTransient<IUserLoginRepository>(x => new UserLoginRepo(sConString));
             services.AddTransient<IAppUserRepository>(x => new AppUserRepo(sConString));
             services.AddTransient<IAccountRepository>(x => new AccountRepo(sConString));

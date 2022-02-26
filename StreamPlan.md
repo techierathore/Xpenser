@@ -1,34 +1,45 @@
 
-# Xpenser
-Xpenser is a open source budget and expense tracking tool developed in Blazor Server.
-
-This is a sample application for live coding sessions done on Twitch, you can also understand the code, watch the development and contribute by joining me https://www.twitch.tv/techierathore. 
+# Xpenser Development Live Stream Plan 
+Xpenser is a open source budget and expense tracking tool developed in Blazor Server. It is architected in such a way that it can be converted/migrated  easily into a desktop and Mobile application (using MAUI Blazor)
 
 ## Application Features (To Be Developed)
  - Account Management 
  - Income Expense Management 
  - Month/Year wise statistics of expenses graphically 
  - Category wise statistics of expenses graphically 
- 
- Stream Recordingsd available at [YouTube](https://www.youtube.com/playlist?list=PLhW718RDpMv6VHtHbOMbfhlSxdhD9VK9d) 
- 
- 
- ##### Code Execution prerequisites
- 1. Visual Studio 2019 Any Edition 
- 2. .NET 5 SDK 
- 3. Maria DB Server 
- 4. Database Management tool like TablePlus
 
-##### Database Setup Steps 
- 1. All the DML scripts are in 'Xpenser.DbMigration/Scripts' Folder
- 2. Open Database Management tool of your choice and connect to MariaDb Database (We Suggest TablePlus)
- 3. Execute All the Scripts of Scripts folder in the order mentioned in File Names. 
 
-##### Code Building Steps 
- 1. To build the code, open Xpenser.sln file in Visual Studio
- 2.  Right Click on the Solution File in Solution Explorer and Select 'Restore Nuget Packages'.
- 3.  Once Packages are restored, repeat previous step but this time select 'Rebuild Solution'
- 4.  Once Build is sccussful click F5 to execute the application.
+| **Topic**                     | **Sub Topic**                                                | **Live Stream Date** | **Stream URL** |
+|-------------------------------|--------------------------------------------------------------|----------------------|----------------|
+| Overview Of Code              | 1. Project Structure                                         | 1-March-2022         |                |
+|                               | 2. Current Status of the Code                                |                      |                |
+|                               | 3. Refactoring Plan of the application                       |                      |                |
+|                               | 4. Full Fledged application Requirements                     |                      |                |
+| Refactoring Project Structure | 1. Seperating the DataAccess into a different project        | 2-March-2022         |                |
+|                               | 2. Moving the Interfaces to Models Project                   |                      |                |                                  
+| Implimenting Authentication   | 1. Understanding Login Screen Flow                           | 3-March-2022         |                |
+|                               | 2. Understanding Sign-Up Flow                                |                      |                | 
+|                               | 3. Impliment email Verification                              |                      |                | 
+|                               | 4. Impliment Forget Password feature                         |                      |                | 
+| Account Management            | 1. Verify Account Management Code                            | 4-March-2022         |                |
+|                               | 2. Understand Account Management Work Flow                   |                      |                |
+| Category Management           | 1. Verify Category Management Workflow                       | 5-March-2022         |                |
+|                               | 2. Understand Category Management Work Flow                  |                      |                |
+| Ledger Management             | 1. Understand Ledger Purpose & Work Flow                     | 6-March-2022         |                |
+|                               | 2. Impliment Ledger Entry                                    |                      |                |
+| Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 7-March-2022         |                |
+|                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |
+| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 8-March-2022         |                |
+|                               | 2. Impliment Expense Report & Flow                           |                      |                |
+| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 9-March-2022         |                |
+|                               | 2. Impliment Expense Report & Flow                           |                      |                |
+|                               |                                                              | 10-March-2022        |                |
+|                               |                                                              | 11-March-2022        |                |
+|                               |                                                              | 12-March-2022        |                |
+|                               |                                                              | 13-March-2022        |                |
+|                               |                                                              | 14-March-2022        |                |
+|                               |                                                              | 15-March-2022        |                |
+|                               |                                                              | 16-March-2022        |                |
 
 
  

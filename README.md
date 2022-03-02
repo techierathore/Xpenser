@@ -14,21 +14,23 @@ This is a sample application for live coding sessions done on Twitch, you can al
  
  
  ##### Code Execution prerequisites
- 1. Visual Studio 2019 Any Edition 
- 2. .NET 5 SDK 
- 3. Maria DB Server 
- 4. Database Management tool like TablePlus
+ 1. Visual Studio 2019/2022 Any Edition 
+ 2. .NET 6 SDK 
+ 3. Maria-DB / My-Sql Server 
+ 4. Database Management tool like TablePlus (https://www.tableplus.io/download)
 
 ##### Database Setup Steps 
- 1. All the DML scripts are in 'Xpenser.DbMigration/Scripts' Folder
- 2. Open Database Management tool of your choice and connect to MariaDb Database (We Suggest TablePlus)
+ 1. All the scripts present in 'Xpenser.DbMigration/Scripts' Folder in the order mentioned.
+ 2. Open Database Management tool of your choice and connect to MariaDb/My-Sql Database (We Suggest TablePlus)
  3. Execute All the Scripts of Scripts folder in the order mentioned in File Names. 
 
 ##### Code Building Steps 
  1. To build the code, open Xpenser.sln file in Visual Studio
  2.  Right Click on the Solution File in Solution Explorer and Select 'Restore Nuget Packages'.
  3.  Once Packages are restored, repeat previous step but this time select 'Rebuild Solution'
- 4.  Once Build is sccussful click F5 to execute the application.
+ 4.  Once Build is sccussful Right click on solution file and choose 'Set Startup Projects' 
+ 5.  In set startup project window click on 'Multiple Startup Projects' Option and from the list set Action of  Xpenser.api & Xpenser.Web to 'start'
+ 6.  Click run or press F5 to execute the applications.
 
 
  

@@ -1,9 +1,6 @@
-﻿
+﻿using TrDataAccess;
 
-using Xpenser.API.DataAccess;
-using Xpenser.Models;
-
-namespace Xpenser.API.Repositories
+namespace Xpenser.Models
 {
     public interface IAppUserRepository : IGenericRepository<AppUser>
     {

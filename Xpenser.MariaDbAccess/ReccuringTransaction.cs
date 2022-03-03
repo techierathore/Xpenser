@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using Xpenser.API.DataAccess;
+using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.API.Repositories
+namespace Xpenser.MariaDbAccess
 {
-    public class RecurringTransactionRepo : MariaDbRepository<ReccuringTransaction>, IReccuringTransactionRepository
+    public class RecurringTransactionRepo : GenericRepository<ReccuringTransaction>, IReccuringTransactionRepository
     {
         public RecurringTransactionRepo(string connectionString) : base(connectionString) { }
         public override IEnumerable<ReccuringTransaction> GetAllById(long aSingleId)

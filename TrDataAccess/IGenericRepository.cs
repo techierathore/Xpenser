@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace Xpenser.API.DataAccess
+namespace TrDataAccess
 {
     public interface IGenericRepository<TEntity>
     {

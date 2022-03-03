@@ -2,12 +2,12 @@
 using System.Data;
 using System.Linq;
 using Dapper;
-using Xpenser.API.DataAccess;
+using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.API.Repositories
+namespace Xpenser.MariaDbAccess
 {
-    public class AppUserRepo : MariaDbRepository<AppUser>, IAppUserRepository
+    public class AppUserRepo : GenericRepository<AppUser>, IAppUserRepository
     {
         public AppUserRepo(string connectionString) : base(connectionString) { }
 

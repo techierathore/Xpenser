@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace Xpenser.API.DataAccess
+namespace TrDataAccess
 {
     /// <summary>
     /// The concrete implementation of a SQL repository
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public abstract class MariaDbRepository<TEntity> : IGenericRepository<TEntity>
+    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
         private string _connectionString;
         private EDbConnectionTypes _dbType;
 
-        public MariaDbRepository(string connectionString)
+        public GenericRepository(string connectionString)
         {
             _dbType = EDbConnectionTypes.MariaDb;
             _connectionString = connectionString;

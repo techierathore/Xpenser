@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using Xpenser.API.DataAccess;
+using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.API.Repositories
+namespace Xpenser.MariaDbAccess
 {
-    public class CategoryRepo : MariaDbRepository<Category>, ICategoryRepository
+    public class CategoryRepo : GenericRepository<Category>, ICategoryRepository
     {
         public CategoryRepo(string connectionString) : base(connectionString) { }
         public override IEnumerable<Category> GetAllById(long aSingleId)

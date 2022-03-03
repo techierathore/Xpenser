@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using Xpenser.API.DataAccess;
+using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.API.Repositories
+namespace Xpenser.MariaDbAccess
 {
-    public class AccountRepo : MariaDbRepository<Account>, IAccountRepository
+    public class AccountRepo : GenericRepository<Account>, IAccountRepository
     {
         public AccountRepo(string connectionString) : base(connectionString) { }
         public override IEnumerable<Account> GetAllById(long aSingleId)

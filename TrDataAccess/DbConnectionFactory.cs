@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using MySqlConnector;
 
-namespace Xpenser.API.DataAccess
+namespace TrDataAccess
 {
     public class DbConnectionFactory
     {

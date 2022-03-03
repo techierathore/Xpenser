@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Xpenser.API.Repositories;
 using Xpenser.Models;
 
 namespace Xpenser.API.Controllers

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29905.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.API", "Xpenser.API\Xpenser.API.csproj", "{ADC013FA-4FDE-45E4-96E0-7DC2E4F3523D}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.UI", "Xpenser.UI\Xpenser.UI.csproj", "{4E579FDB-C2CC-49C3-BB63-10487C67E66D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Web", "Xpenser.Web\Xpenser.Web.csproj", "{59A140E6-0AD1-4D7B-BAFF-A73327142093}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrDataAccess", "TrDataAccess\TrDataAccess.csproj", "{33A230A1-02D6-45FA-BFEA-D381965AF398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.MariaDbAccess", "Xpenser.MariaDbAccess\Xpenser.MariaDbAccess.csproj", "{B26BE84C-D892-4847-AB7C-494A5DDE8C28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

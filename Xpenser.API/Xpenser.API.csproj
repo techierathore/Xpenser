@@ -12,7 +12,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="NLog" Version="5.0.0-preview.3" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0-preview.3" />        
-    <PackageReference Include="MySqlConnector" Version="2.1.0" />
   </ItemGroup>
 
 
@@ -22,6 +21,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Xpenser.MariaDbAccess\Xpenser.MariaDbAccess.csproj" />
     <ProjectReference Include="..\Xpenser.Models\Xpenser.Models.csproj" />
   </ItemGroup>
 </Project>

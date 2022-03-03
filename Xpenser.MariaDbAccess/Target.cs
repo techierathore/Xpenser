@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Xpenser.API.DataAccess;
+using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.API.Repositories
+namespace Xpenser.MariaDbAccess
 {
-    public class TargetRepo : MariaDbRepository<Target>, ITargetRepository
+    public class TargetRepo : GenericRepository<Target>, ITargetRepository
     {
         public TargetRepo(string connectionString) : base(connectionString) { }
 

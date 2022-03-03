@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.MariaDbAccess
+namespace Xpenser.DbAccess
 {
     public class TargetRepo : GenericRepository<Target>, ITargetRepository
     {

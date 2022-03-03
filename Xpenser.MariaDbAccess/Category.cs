@@ -4,7 +4,7 @@ using Dapper;
 using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.MariaDbAccess
+namespace Xpenser.DbAccess
 {
     public class CategoryRepo : GenericRepository<Category>, ICategoryRepository
     {

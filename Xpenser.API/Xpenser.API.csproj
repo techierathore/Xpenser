@@ -21,7 +21,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Xpenser.MariaDbAccess\Xpenser.MariaDbAccess.csproj" />
+    <ProjectReference Include="..\Xpenser.MariaDbAccess\Xpenser.DbAccess.csproj" />
     <ProjectReference Include="..\Xpenser.Models\Xpenser.Models.csproj" />
   </ItemGroup>
 </Project>

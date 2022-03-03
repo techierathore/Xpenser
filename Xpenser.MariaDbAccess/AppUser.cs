@@ -5,7 +5,7 @@ using Dapper;
 using TrDataAccess;
 using Xpenser.Models;
 
-namespace Xpenser.MariaDbAccess
+namespace Xpenser.DbAccess
 {
     public class AppUserRepo : GenericRepository<AppUser>, IAppUserRepository
     {

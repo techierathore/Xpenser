@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Web", "Xpenser.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrDataAccess", "TrDataAccess\TrDataAccess.csproj", "{33A230A1-02D6-45FA-BFEA-D381965AF398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.MariaDbAccess", "Xpenser.MariaDbAccess\Xpenser.MariaDbAccess.csproj", "{B26BE84C-D892-4847-AB7C-494A5DDE8C28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.DbAccess", "Xpenser.MariaDbAccess\Xpenser.DbAccess.csproj", "{B26BE84C-D892-4847-AB7C-494A5DDE8C28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

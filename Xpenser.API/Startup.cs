@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Xpenser.API.ErrorLogging;
-using Xpenser.MariaDbAccess;
+using Xpenser.DbAccess;
 using Xpenser.Models;
 
 namespace Xpenser.API

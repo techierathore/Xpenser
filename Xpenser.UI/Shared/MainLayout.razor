@@ -111,9 +111,9 @@
                                     <BarDropdownItem To="Profile">
                                         Profile
                                     </BarDropdownItem>
-                                    <BarDropdownItem To="LogOff">
-                                        Log Off
-                                    </BarDropdownItem>
+                        <BarDropdownItem Clicked="Logout" href="javascript:void(0);">
+                            Log Off
+                        </BarDropdownItem>
                                 </BarDropdownMenu>
                             </BarDropdown>
                         </BarItem>
@@ -206,7 +206,20 @@ siderVisible = !siderVisible;
 StateHasChanged();
 }
 
-[CascadingParameter] protected Theme Theme { get; set; }
+[CascadingParameter] 
+protected Theme Theme { get; set; }
+    [Inject]
+    NavigationManager AppNavManager { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+    [Inject]
+    AuthenticationStateProvider AuthStateProvider { get; set; }
+
+    public async Task Logout()
+    {
+        await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsLoggedOut();
+        AppNavManager.NavigateTo("");
+    }
 }
 
 

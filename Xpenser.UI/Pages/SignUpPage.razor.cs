@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -25,26 +26,31 @@ namespace Xpenser.UI.Pages
             return base.OnInitializedAsync();
         }
 
-        private async Task<bool> RegisterUser()
+        private async Task RegisterUser()
         {
             PageObj.Role = AppConstants.AppUseRole;
             PageObj.IsVerified = false;
             SignUpDetails = new SvcData()
             { ComplexData = JsonSerializer.Serialize(PageObj) };
 
-            vValidatedUser = await AuthSvc.RegisterUserAsync(SignUpDetails);
-
-            if (vValidatedUser.EmailID != null)
+            try
             {
-                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
-                NavigationManager.NavigateTo("/");
-            }
-            else
-            {
-                SignUpMesssage = "Invalid username or password";
-            }
+                vValidatedUser = await AuthSvc.RegisterUserAsync(SignUpDetails);
 
-            return await Task.FromResult(true);
+                if (vValidatedUser != null)
+                {
+                    await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
+                    NavigationManager.NavigateTo("/");
+                }
+                else
+                {
+                    SignUpMesssage = "Invalid username or password";
+                }
+            }
+            catch (Exception ex)
+            {
+                SignUpMesssage = ex.Message;
+            }
         }
     }
 }

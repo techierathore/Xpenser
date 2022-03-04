@@ -7,7 +7,7 @@ using Xpenser.UI.Services;
 
 namespace Xpenser.UI.Pages
 {
-    public class LoginBase : ComponentBase
+    public partial class LoginPage : ComponentBase
     {
         public SvcData LoginDetails { get; set; }
         public string LoginMesssage { get; set; }

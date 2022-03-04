@@ -43,14 +43,16 @@ namespace Xpenser.UI.Services
                     = new System.Net.Http.Headers.MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
 
                 var vSvcResponse = await SvcClient.SendAsync(vRequestMessage);
-                var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
-                SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
-                string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
-                return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
-
+                if (vSvcResponse.IsSuccessStatusCode)
+                {
+                    var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
+                    SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
+                    string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
+                    return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
+                } return null;
             }
-            catch (Exception ex)
-            { throw ex; }
+            catch (Exception)
+            { throw; }
          }
 
         public async Task<AppUser> RegisterUserAsync(SvcData aLoginUser)
@@ -64,14 +66,21 @@ namespace Xpenser.UI.Services
             };
             vRequestMessage.Content.Headers.ContentType
                 = new System.Net.Http.Headers.MediaTypeHeaderValue(AppConstants.JsonMediaTypeHeader);
-
+            try
+            { 
             var vSvcResponse = await SvcClient.SendAsync(vRequestMessage);
-            var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
-            SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
-            string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
-            return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
+                if (vSvcResponse.IsSuccessStatusCode)
+                {
+                    var vResponseBody = await vSvcResponse.Content.ReadAsStreamAsync();
+                    SvcData vSvcRetObj = await JsonSerializer.DeserializeAsync<SvcData>(vResponseBody, JsonOptions);
+                    string sDeCryptedUser = AppEncrypt.DecryptText(vSvcRetObj.ComplexData);
+                    return JsonSerializer.Deserialize<AppUser>(sDeCryptedUser, JsonOptions);
+                }
+                else throw new Exception(vSvcResponse.ReasonPhrase);
+            }
+            catch (Exception)
+            { throw; }
         }
-
         public async Task<AppUser> RefreshTokenAsync(RefreshRequest aRefreshRequest)
         {
             string vSerializedUser = JsonSerializer.Serialize(aRefreshRequest);

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Dapper;
-using TrDataAccess;
+using Xpenser.API.DaCore;
 using Xpenser.Models;
-
-namespace Xpenser.DbAccess
+namespace Xpenser.API.DbAccess
 {
     public class AppUserRepo : GenericRepository<AppUser>, IAppUserRepository
     {
@@ -76,14 +75,14 @@ namespace Xpenser.DbAccess
             var vReturnUser = vConn.Query<AppUser>("ValidateLogin", vParams, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return vReturnUser;
         }
-        public  AppUser GetUserByEmail(string loginEmail)
+        public AppUser GetUserByEmail(string loginEmail)
         {
             using var vConn = GetOpenConnection();
             var vParams = new DynamicParameters();
             vParams.Add("@pEmailID", loginEmail);
             return vConn.QueryFirstOrDefault<AppUser>("AppUserByEmail", vParams, commandType: CommandType.StoredProcedure);
         }
-        public  AppUser GetUserByMobile(string aMobileNo)
+        public AppUser GetUserByMobile(string aMobileNo)
         {
             using var vConn = GetOpenConnection();
             var vParams = new DynamicParameters();

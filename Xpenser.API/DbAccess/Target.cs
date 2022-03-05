@@ -1,13 +1,10 @@
 ﻿using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using TrDataAccess;
+using Xpenser.API.DaCore;
 using Xpenser.Models;
 
-namespace Xpenser.DbAccess
+namespace Xpenser.API.DbAccess
 {
     public class TargetRepo : GenericRepository<Target>, ITargetRepository
     {

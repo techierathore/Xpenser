@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using TrDataAccess;
+using Xpenser.API.DaCore;
 using Xpenser.Models;
 
-namespace Xpenser.DbAccess
+namespace Xpenser.API.DbAccess
 {
     public class RecurringTransactionRepo : GenericRepository<ReccuringTransaction>, IReccuringTransactionRepository
     {

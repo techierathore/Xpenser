@@ -1,7 +1,7 @@
-﻿using System.Data;
-using MySqlConnector;
+﻿using MySqlConnector;
+using System.Data;
 
-namespace TrDataAccess
+namespace Xpenser.API.DaCore
 {
     public class DbConnectionFactory
     {

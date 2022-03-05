@@ -6,6 +6,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Xpenser.API.ErrorLogging;
+using Xpenser.API.DaCore;
 using Xpenser.Models;
 
 namespace Xpenser.API.Controllers

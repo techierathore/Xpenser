@@ -15,10 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.UI", "Xpenser.UI\Xp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpenser.Web", "Xpenser.Web\Xpenser.Web.csproj", "{59A140E6-0AD1-4D7B-BAFF-A73327142093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrDataAccess", "TrDataAccess\TrDataAccess.csproj", "{33A230A1-02D6-45FA-BFEA-D381965AF398}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpenser.DbAccess", "Xpenser.MariaDbAccess\Xpenser.DbAccess.csproj", "{B26BE84C-D892-4847-AB7C-494A5DDE8C28}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,14 +45,6 @@ Global
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59A140E6-0AD1-4D7B-BAFF-A73327142093}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33A230A1-02D6-45FA-BFEA-D381965AF398}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B26BE84C-D892-4847-AB7C-494A5DDE8C28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

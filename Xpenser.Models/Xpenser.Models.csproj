@@ -3,7 +3,4 @@
     <Folder Include="Models\" />
     <Folder Include="Common\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TrDataAccess\TrDataAccess.csproj" />
-  </ItemGroup>
 </Project>

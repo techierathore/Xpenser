@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Xpenser.API.Common;
 using Xpenser.API.DaCore;
 using Xpenser.API.DbAccess;
 using Xpenser.API.ErrorLogging;
@@ -28,6 +29,30 @@ namespace Xpenser.API
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
             string sConString = Configuration["AppDbConString"];
+        
+            var vEmailConfigValues = new EmailSettings()
+            {
+                Host = Configuration["EmailHost"],
+                Port = Convert.ToInt32(Configuration["EmailPort"]),
+                UseSsl = Convert.ToBoolean(Configuration["EmailUseSsl"]),
+                UserName = Configuration["EmailUser"],
+                Password = Configuration["EmailPass"],
+                SenderName = Configuration["EmailSenderName"],
+                SenderAddress = Configuration["EmailSenderAddress"],
+                CopyAddress = Configuration["EmailCopyAddress"]
+            };
+            var vAppSettings = new AppSettings()
+            {
+                WebAppBaseUrl = Configuration["WebAppBaseUrl"],
+                SiteUrl = Configuration["SiteUrl"],
+                HelpUrl = Configuration["HelpUrl"],
+                AppName = Configuration["AppName"],
+                CopyRightMessage = Configuration["CopyRightMessage"],
+                FreeResumeCount = 2,
+                EmailOptions = vEmailConfigValues
+            };
+            services.AddSingleton(vAppSettings);
+            services.AddTransient<EmailService>();
             services.AddTransient<IUserLoginRepository>(x => new UserLoginRepo(sConString));
             services.AddTransient<IAppUserRepository>(x => new AppUserRepo(sConString));
             services.AddTransient<IAccountRepository>(x => new AccountRepo(sConString));

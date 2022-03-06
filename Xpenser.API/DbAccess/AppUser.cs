@@ -41,11 +41,13 @@ namespace Xpenser.API.DbAccess
             var vParams = new DynamicParameters();
             vParams.Add("@pFirstName", aEntity.FirstName);
             vParams.Add("@pLastName", aEntity.LastName);
-            vParams.Add("@pEmailID", aEntity.EmailID);
+            vParams.Add("@pEmailID", aEntity.UserEmail);
             vParams.Add("@pPasswordHash", aEntity.PasswordHash);
             vParams.Add("@pMobileNo", aEntity.MobileNo);
             vParams.Add("@pIsVerified", aEntity.IsVerified);
-            vParams.Add("@pRole", aEntity.Role);
+            vParams.Add("@pRole", aEntity.UserRole);
+            vParams.Add("@pVerificationCode", aEntity.VerificationCode);
+            vParams.Add("@pIsFirstLogin", aEntity.IsFirstLogin);
             vParams.Add("@pInsertedId", lLastInsertedId, direction: ParameterDirection.Output);
             vConn.Execute("AppUserInsert", vParams, commandType: CommandType.StoredProcedure);
             lLastInsertedId = vParams.Get<long>("@pInsertedId");
@@ -58,11 +60,11 @@ namespace Xpenser.API.DbAccess
             vParams.Add("@pAppUserId", aEntity.AppUserId);
             vParams.Add("@pFirstName", aEntity.FirstName);
             vParams.Add("@pLastName", aEntity.LastName);
-            vParams.Add("@pEmailID", aEntity.EmailID);
+            vParams.Add("@pEmailID", aEntity.UserEmail);
             vParams.Add("@pPasswordHash", aEntity.PasswordHash);
             vParams.Add("@pMobileNo", aEntity.MobileNo);
             vParams.Add("@pIsVerified", aEntity.IsVerified);
-            vParams.Add("@pRole", aEntity.Role);
+            vParams.Add("@pRole", aEntity.UserRole);
             vConn.Execute("AppUserUpdate", vParams, commandType: CommandType.StoredProcedure);
         }
 
@@ -88,6 +90,33 @@ namespace Xpenser.API.DbAccess
             var vParams = new DynamicParameters();
             vParams.Add("@pMobileNo", aMobileNo);
             return vConn.QueryFirstOrDefault<AppUser>("AppUserByMobile", vParams, commandType: CommandType.StoredProcedure);
+        }
+
+        public AppUser GetUserByVerificationCode(string aVerificationCode)
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pVerificationCode", aVerificationCode);
+            var vReturnUser = vConn.Query<AppUser>("GetUserByVerificationCode", vParams, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            return vReturnUser;
+        }
+
+        public void UpdateUserEmail(AppUser aUser)
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pAppUserId", aUser.AppUserId);
+            vParams.Add("@pUserEmail", aUser.UserEmail);
+            vParams.Add("@pVerificationCode", aUser.VerificationCode);
+            vConn.Execute("AppUserUpdateEmail", vParams, commandType: CommandType.StoredProcedure);
+        }
+
+        public void UpdateVerificationCode(string aVerificationCode)
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pVerificationCode", aVerificationCode);
+            var vReturnUser = vConn.Query<AppUser>("UpdateVerificationCode", vParams, commandType: CommandType.StoredProcedure).SingleOrDefault();
         }
     }
 }

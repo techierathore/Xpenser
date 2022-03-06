@@ -8,6 +8,7 @@ namespace Xpenser.Models
 		public string LoginEmail { get; set; }
 		public string LoginPass { get; set; }
 		public string JwToken { get; set; }
+		public string VerificationCode { get; set; }
 	}
 
 	public class RefreshRequest

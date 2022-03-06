@@ -37,7 +37,7 @@ namespace Xpenser.UI.Pages
         {
             vValidatedUser = await AuthSvc.LoginAsync(LoginDetails);
 
-            if (vValidatedUser.EmailID != null)
+            if (vValidatedUser.UserEmail != null)
             {
                 await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
                 NavigationManager.NavigateTo("/Index");

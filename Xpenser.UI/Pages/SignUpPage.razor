@@ -2,42 +2,56 @@
 @page  "/signup"
 
 <EditForm Model="@PageObj" OnValidSubmit="@RegisterUser">
+     <DataAnnotationsValidator />
     <div>
         <br /><br /><br /><br /><br />
     </div>
     <div>
-        <h3 style="font-weight:bold;">Xpenser SignUp</h3>
+        <h3 style="font-weight:bold;">C V Engine Sign-Up</h3>
     </div>
     <div>
         <br />
     </div>
     <div class="col-12 row">
-        <input class="form-control col-12" @bind="PageObj.FirstName" placeholder="First Name" />
+        <input class="form-control col-12" id="FirstName" type="text" @bind-value="PageObj.FirstName" placeholder="First Name" />
+        <ValidationMessage For="@(() => PageObj.FirstName)" class="validation-message" />
     </div>
     <br />
     <div class="col-12 row">
-        <input class="form-control col-12" @bind="PageObj.LastName" placeholder="Last Name" />
+        <input class="form-control col-12" id="LastName" type="text" @bind-value="PageObj.LastName" placeholder="Last Name" />
+         <ValidationMessage For="@(() => PageObj.LastName)" class="validation-message" />
     </div>
     <br />
     <div class="col-12 row">
-        <input class="form-control col-12" @bind="PageObj.MobileNo" placeholder="Mobile No" />
+        <input class="form-control col-12" id="MobileNo" type="text" @bind-value="PageObj.MobileNo" placeholder="Mobile No" />
+         <ValidationMessage For="@(() => PageObj.MobileNo)" class="validation-message" />
     </div>
     <br />
     <div class="col-12 row">
-        <input class="form-control col-12" @bind="PageObj.EmailID" placeholder="Email ID" />
+        <input class="form-control col-12" id="UserEmail" type="email" @bind-value="PageObj.UserEmail" placeholder="Email ID" />
+        <ValidationMessage For="@(() => PageObj.UserEmail)" class="validation-message" />
     </div>
     <br />
     <div class="col-12 row">
-        <input type="password" class="form-control col-12" @bind="PageObj.PasswordHash" placeholder="Login Password" />
+        <input type="password" class="form-control col-12" @bind-value="PageObj.LoginPass" placeholder="Login Password" />
+        <ValidationMessage For="@(() => PageObj.LoginPass)" class="validation-message" />
     </div>
     <br />
     <div class="col-12 row">
-        <input type="password" class="form-control col-12" @bind="PageObj.ConfirmPassword" placeholder="Confirm Password" />
+        <input type="password" class="form-control col-12" @bind-value="PageObj.ConfirmPassword" placeholder="Confirm Password" />
+         <ValidationMessage For="@(() => PageObj.ConfirmPassword)" class="validation-message" />
+    </div>
+    <br />
+    <div class="col-12 row">
+        <Check TValue="bool" Checked="@AgreeToTerms"
+                CheckedChanged="@OnTermsCheckChanged">
+            I agree to the <a target="_blank" href="TermsPage"><b>terms and conditions</b></a>
+        </Check>
     </div>
     <br />
     <div class="col-12 row">
         <span class="col-12"></span>
-        <input type="submit" class="form-control col-6 btn btn-primary" value="Sign up" />
+        <button type="submit" class="btn btn-primary" disabled=@CheckIsDisabledSubmit>Sign Up</button>
         <a href="/" class="col-6">Already an user?</a>
     </div>
     <br />
@@ -45,3 +59,6 @@
         <span class="col-12">@SignUpMesssage</span>
     </div>
 </EditForm>
+
+
+<VerifyPopUp @ref="VerifyDialog" />

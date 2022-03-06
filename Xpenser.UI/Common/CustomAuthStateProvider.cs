@@ -64,14 +64,14 @@ namespace Xpenser.UI
         {
             var vClaimsIdentity = new ClaimsIdentity();
 
-            if (aLoggedUser.EmailID != null)
+            if (aLoggedUser.UserEmail != null)
             {
                 vClaimsIdentity = new ClaimsIdentity(new[]
                                 {
                                     new Claim(ClaimTypes.PrimarySid,Convert.ToString(aLoggedUser.AppUserId)),
                                     new Claim(ClaimTypes.Name,aLoggedUser.FullName),
-                                    new Claim(ClaimTypes.Email, aLoggedUser.EmailID),
-                                    new Claim(ClaimTypes.Role, aLoggedUser.Role)
+                                    new Claim(ClaimTypes.Email, aLoggedUser.UserEmail),
+                                    new Claim(ClaimTypes.Role, aLoggedUser.UserRole)
                                 }, "apiauth_type");
             }
 

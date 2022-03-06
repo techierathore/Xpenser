@@ -1,0 +1,55 @@
+﻿<Modal @ref="VerifyModal" IsAnimated="true" AnimationDuration="150" Closing="@OnModalClosing">
+        <ModalContent Size="ModalSize.Default" Centered="true">
+        <ModalHeader>
+            <ModalTitle>Please Verify your email !</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <p>
+                You are almost there! We have sent an email to<br>
+                <b class="b-clr">@UserEmail</b>
+            </p>
+            <p>
+                Just click on the link in that email to <b class="b-clr">verify and activate</b> your account.<br>
+                If you don't see it. you may need to <b class="b-clr">check your spam </b> folder
+                </p>
+            <p>Still can't find the email?</p>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="ReSendEmail" Disabled="IsDisabled">Resend Email</Button>
+            <p class="pb-2 mt-2">
+                <span>Incorrect Email ?</span><b><a class="b-clr mr-5 t-underline" href="javascript:void(0);" @onclick="ShowEditEmailPopUp"> Edit Email</a></b>
+                <span>Need Help ? </span><b><NavLink class="b-clr t-underline" href="https://help.renteasly.com/open.php"> Contact Us</NavLink></b>
+            </p>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="EditEmailPopUp" Closing="@OnModalClosing">
+    <ModalContent Size="ModalSize.Small" Centered="true">
+        <ModalHeader>
+            <ModalTitle>Please enter your email !</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+                <div class="col-sm-10 offset-1 d-flex">
+                    <div class="w-10">
+                        <span class="input-group-text mt-2">
+                            <i>email</i>
+                        </span>
+                    </div>
+                    <div class="w-90">
+                        <div class="input-field cst-input w-100">
+                            <input type="text" id="" placeholder="Prefilled Email" required="" @bind="NewUserEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class=" justify-content-center my-3">
+                    <p class="mb-0 e-msg text-center">@ErrorMessage</p>
+                </div>
+        </ModalBody>
+        <ModalFooter>
+             <Button Color="Color.Primary" Clicked="UpdateNSendEmail">Save & Send</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

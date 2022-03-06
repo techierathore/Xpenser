@@ -2,11 +2,13 @@ CREATE TABLE `AppUser` (
   `AppUserId` bigint(20) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(255) NOT NULL,
   `LastName` varchar(255) NOT NULL,
-  `EmailID` varchar(355) NOT NULL,
+  `UserEmail` varchar(355) NOT NULL,
   `PasswordHash` varchar(35) NOT NULL,
   `MobileNo` varchar(35) NOT NULL,
   `IsVerified` bit(1) DEFAULT NULL,
-  `Role` varchar(55) NOT NULL,
+	`VerificationCode` varchar(355),
+	`IsFirstLogin` bit NOT NULL,
+	`UserRole` varchar(255) NOT NULL,
   `ProfilePicId` bigint(20) DEFAULT NULL,
 	PRIMARY KEY (`AppUserId`)
 );

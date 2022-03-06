@@ -14,12 +14,14 @@ namespace Xpenser.Models
 				return FirstName + " " + LastName;
 			}
 		}
-		public string EmailID { get; set; }
+		public string UserEmail { get; set; }
 		public string PasswordHash { get; set; }
 		public string ConfirmPassword { get; set; }
 		public string MobileNo	{ get; set; }
+		public string VerificationCode { get; set; }
 		public bool IsVerified { get; set; }
-		public string Role	{ get; set; }
+		public bool IsFirstLogin { get; set; }
+		public string UserRole { get; set; }
 		public long ProfilePicId { get; set; }		
 		public string ProfilePicPath { get; set; }
 		public string AccessToken	{ get; set; }

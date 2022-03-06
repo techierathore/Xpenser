@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Xpenser.Models;
 using Xpenser.UI.Services;
+using Xpenser.UI.Shared;
+using Xpenser.UI.ViewModels;
 
 namespace Xpenser.UI.Pages
 {
     public partial class SignUpPage : ComponentBase
     {
         public SvcData SignUpDetails { get; set; }
-        public AppUser PageObj { get; set; }
+        public SignUpVm PageObj { get; set; }
         public string SignUpMesssage { get; set; }
         [Inject]
         public AuthenticationStateProvider AuthStateProvider { get; set; }
@@ -19,38 +21,49 @@ namespace Xpenser.UI.Pages
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public IAuthService AuthSvc { get; set; }
-        private AppUser vValidatedUser;
+
+        private bool vSignUpDone;
+        bool AgreeToTerms;
+        protected VerifyPopUp VerifyDialog;
+        bool CheckIsDisabledSubmit = true;
         protected override Task OnInitializedAsync()
         {
-            PageObj = new AppUser();
+            CheckIsDisabledSubmit = true;
+            PageObj = new SignUpVm();
             return base.OnInitializedAsync();
         }
 
         private async Task RegisterUser()
         {
-            PageObj.Role = AppConstants.AppUseRole;
+            CheckIsDisabledSubmit = true;
             PageObj.IsVerified = false;
+            PageObj.IsFirstLogin = true;
             SignUpDetails = new SvcData()
             { ComplexData = JsonSerializer.Serialize(PageObj) };
-
             try
             {
-                vValidatedUser = await AuthSvc.RegisterUserAsync(SignUpDetails);
+                vSignUpDone = await AuthSvc.RegisterUserAsync(SignUpDetails);
 
-                if (vValidatedUser != null)
+                if (vSignUpDone)
                 {
-                    await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
-                    NavigationManager.NavigateTo("/");
-                }
-                else
-                {
-                    SignUpMesssage = "Invalid username or password";
+                    VerifyDialog.UserEmail = PageObj.UserEmail;
+                    VerifyDialog.ShowPopUp();
                 }
             }
             catch (Exception ex)
             {
+                CheckIsDisabledSubmit = false;
                 SignUpMesssage = ex.Message;
             }
+        }
+
+        void OnTermsCheckChanged(bool value)
+        {
+            AgreeToTerms = value;
+            CheckIsDisabledSubmit = false;
+            if (AgreeToTerms)
+                CheckIsDisabledSubmit = false;
+            else CheckIsDisabledSubmit = true;
         }
     }
 }

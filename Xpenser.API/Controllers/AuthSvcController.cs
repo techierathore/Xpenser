@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Xpenser.API.ErrorLogging;
 using Xpenser.API.DaCore;
 using Xpenser.Models;
+using Xpenser.API.Common;
 
 namespace Xpenser.API.Controllers
 {
@@ -17,14 +18,19 @@ namespace Xpenser.API.Controllers
         private readonly IAppUserRepository UserRepo;
         private readonly ILoggerManager AppLogger;
         private readonly IUserLoginRepository LoginRepo;
-
+        private readonly EmailService EmailService;
+        private readonly AppSettings AppSettings;
         public AuthSvcController(IAppUserRepository aUserRepo,
             IUserLoginRepository aUserLogins,
+            EmailService aEmailService,
+            AppSettings aAppSettings,
              ILoggerManager aLogger)
         {
             UserRepo = aUserRepo;
             LoginRepo = aUserLogins;
             AppLogger = aLogger;
+            EmailService = aEmailService;
+            AppSettings = aAppSettings;
         }
 
         /// <summary>
@@ -40,42 +46,79 @@ namespace Xpenser.API.Controllers
             { return BadRequest(); }
             try
             {
-                string sJwToken;
                 var vUserDataJson = AppEncrypt.DecryptText(aSignUpData.ComplexData);
                 AppUser vNewUser = JsonSerializer.Deserialize<AppUser>(vUserDataJson);
 
-                var vCheckUserByEmail = UserRepo.GetUserByEmail(vNewUser.EmailID);
+                var vCheckUserByEmail = UserRepo.GetUserByEmail(vNewUser.UserEmail);
                 if (vCheckUserByEmail != null) return BadRequest("User with this Email already present use login or Forgot Password (if you had forgotten the password) ");
                 var vCheckUserByMobile = UserRepo.GetUserByMobile(vNewUser.MobileNo);
                 if (vCheckUserByMobile != null) return BadRequest("User with this Phone No already present use login or Forgot Password (if you had forgotten the password) ");
                 vNewUser.PasswordHash = AppEncrypt.CreateHash(vNewUser.PasswordHash);
-                var iNewUserId = UserRepo.InsertToGetId(vNewUser);
-                if (iNewUserId >0)
+                vNewUser.UserRole = AppConstants.AppUseRole;
+                var vVerificationCode = $"{vNewUser.UserEmail}#{vNewUser.LastName}#{DateTime.UtcNow}";
+                vNewUser.VerificationCode = AppEncrypt.CreateHash(vVerificationCode);
+                var vNewUserId = UserRepo.InsertToGetId(vNewUser);
+                if (vNewUserId > 0)
                 {
-                    vNewUser.AppUserId = iNewUserId;
-                    sJwToken = GenerateJWToken(vNewUser);
-                    var vUserLogins = new UserLogin()
-                    {
-                        LoginToken = sJwToken,
-                        IssueDate = DateTime.Today,
-                        LoginDate = DateTime.Today,
-                        ExipryDate = DateTime.Today.AddDays(2),
-                        TokenStatus = TokenStatus.ValidToken.ToString(),
-                        UserId = vNewUser.AppUserId
-                    };
-                    LoginRepo.Insert(vUserLogins);
-                    vNewUser.AccessToken = sJwToken;
-                    vNewUser.RefreshToken = sJwToken;
+                    vNewUser.AppUserId = vNewUserId;
+                    SendVerificationEmail(vNewUser);
                 }
                 else
-                { return BadRequest("Unable to Save New User"); }
-                string vRetData = JsonSerializer.Serialize(vNewUser);
-                string sEncryptedData = AppEncrypt.EncryptText(vRetData);
-                SvcData vReturnData = new SvcData()
                 {
-                    ComplexData = sEncryptedData,
-                    JwToken = sJwToken
-                };
+                    return BadRequest("Unable to Save New User");
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
+        [Route("[action]/{VerificationCode}")]
+        [HttpPatch]
+        public IActionResult UpdateVerificationCode(string VerificationCode)
+        {
+            try
+            {
+                UserRepo.UpdateVerificationCode(VerificationCode);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
+        [HttpPost("VerifyEmail")]
+        public IActionResult VerifyEmail([FromBody] SvcData aVerifyEmailData)
+        {
+            if (aVerifyEmailData == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var vVerificationCode = AppEncrypt.DecryptText(aVerifyEmailData.VerificationCode);
+                var vAppUser = UserRepo.GetUserByVerificationCode(vVerificationCode);
+
+                if (vAppUser == null)
+                {
+                    return BadRequest("Invalid verification code.");
+                }
+
+                if (!vAppUser.IsVerified)
+                {
+                    vAppUser.IsVerified = true;
+                    vAppUser.VerificationCode = null;
+                    UserRepo.Update(vAppUser);
+                }
+
+                var vRetData = JsonSerializer.Serialize(vAppUser);
+                var vEncryptedData = AppEncrypt.EncryptText(vRetData);
+                var vReturnData = new SvcData { ComplexData = vEncryptedData };
+
                 return Ok(vReturnData);
             }
             catch (Exception ex)
@@ -84,7 +127,85 @@ namespace Xpenser.API.Controllers
                 return BadRequest(ex);
             }
         }
-       
+
+        [HttpPost("ResendVerifiEmail")]
+        public IActionResult ResendVerifiEmail([FromBody] SvcData aVerifiEmailData)
+        {
+            if (aVerifiEmailData == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var vLoginEmail = AppEncrypt.DecryptText(aVerifiEmailData.LoginEmail);
+                var vUser = UserRepo.GetUserByEmail(vLoginEmail);
+
+                if (vUser != null)
+                {
+                    SendVerificationEmail(vUser);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("User Not Found");
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("UpdateNSendVerifiEmail")]
+        public IActionResult UpdateNSendVerifiEmail([FromBody] SvcData aVerifiEmailData)
+        {
+            if (aVerifiEmailData == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var vLoginEmail = AppEncrypt.DecryptText(aVerifiEmailData.LoginEmail);
+                var vUser = UserRepo.GetUserByEmail(vLoginEmail);
+
+                if (vUser != null)
+                {
+                    var vNewUserJson = AppEncrypt.DecryptText(aVerifiEmailData.ComplexData);
+                    var vNewUser = JsonSerializer.Deserialize<AppUser>(vNewUserJson);
+
+                    var vCheckUserByEmail = UserRepo.GetUserByEmail(vNewUser.UserEmail);
+
+                    if (vCheckUserByEmail != null)
+                    {
+                        return BadRequest("Verification email has been already sent.");
+                    }
+
+                    vUser.UserEmail = vNewUser.UserEmail;
+
+                    // UserEmail is changing so we need to create a new VerificationCode
+                    var vVerificationCode = $"{vUser.UserEmail}#{vUser.LastName}#{DateTime.UtcNow}";
+                    vUser.VerificationCode = AppEncrypt.CreateHash(vVerificationCode);
+
+                    UserRepo.UpdateUserEmail(vUser);
+
+                    SendVerificationEmail(vUser);
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("User Not Found");
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
         [HttpPost("AppLogin")]
         public IActionResult AppLogin([FromBody] SvcData aLoginData)
         {
@@ -159,6 +280,90 @@ namespace Xpenser.API.Controllers
             else { return BadRequest("User Not Found"); }
 
         }
+        [HttpPost("SendPasswordResetEmail")]
+        public IActionResult SendPasswordResetEmail([FromBody] SvcData aPasswordResetData)
+        {
+            if (aPasswordResetData == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var vLoginEmail = AppEncrypt.DecryptText(aPasswordResetData.LoginEmail);
+                //var vLoginEmail = aPasswordResetData.LoginEmail;
+                var vAppUser = UserRepo.GetUserByEmail(vLoginEmail);
+
+                if (vAppUser != null)
+                {
+                    var vVerificationCode = $"{vAppUser.UserEmail}#{vAppUser.LastName}#{DateTime.UtcNow}";
+                    vAppUser.VerificationCode = AppEncrypt.CreateHash(vVerificationCode);
+
+                    UserRepo.Update(vAppUser);
+
+                    var vPasswordResetUrl = $"{AppSettings.WebAppBaseUrl}/ReSetPass/{vAppUser.VerificationCode}";
+
+                    var vSubject = "Password reset link";
+
+                    using var vStreamReader = System.IO.File.OpenText("EmailTemplates/ResetPassword.html");
+                    var vTemplate = vStreamReader.ReadToEnd();
+                    vTemplate = vTemplate.Replace("{PageTitle}", vSubject);
+                    vTemplate = vTemplate.Replace("{FirstName}", vAppUser.FirstName);
+                    vTemplate = vTemplate.Replace("{VerifyUrl}", vPasswordResetUrl);
+                    EmailService.SendEmail(vAppUser.FullName, vAppUser.UserEmail, vSubject, vTemplate);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("User Not Found");
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("ResetPassword")]
+        public IActionResult ResetPassword([FromBody] SvcData aPasswordResetData)
+        {
+            if (aPasswordResetData == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var vVerificationCode = AppEncrypt.DecryptText(aPasswordResetData.VerificationCode);
+                //var vVerificationCode = aPasswordResetData.VerificationCode;
+
+                var vAppUser = UserRepo.GetUserByVerificationCode(vVerificationCode);
+
+                if (vAppUser != null)
+                {
+                    var vUserDataJson = AppEncrypt.DecryptText(aPasswordResetData.ComplexData);
+                    var vNewUser = JsonSerializer.Deserialize<AppUser>(vUserDataJson);
+                    //var vNewUser = JsonSerializer.Deserialize<AppUser>(aPasswordResetData.ComplexData);
+
+                    vAppUser.PasswordHash = AppEncrypt.CreateHash(vNewUser.PasswordHash);
+                    vAppUser.IsVerified = true;
+                    vAppUser.VerificationCode = null;
+                    UserRepo.Update(vAppUser);
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Invalid verification code (Link Expired)");
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLogger.LogCritical(ex.Message);
+                return BadRequest(ex);
+            }
+        }
 
         private string GenerateJWToken(AppUser aLoggedInUser)
         {
@@ -170,8 +375,8 @@ namespace Xpenser.API.Controllers
                 {
                     new Claim(ClaimTypes.PrimarySid,Convert.ToString(aLoggedInUser.AppUserId)),
                     new Claim(ClaimTypes.Name,aLoggedInUser.FullName),
-                    new Claim(ClaimTypes.Email, aLoggedInUser.EmailID),
-                    new Claim(ClaimTypes.Role, aLoggedInUser.Role)
+                    new Claim(ClaimTypes.Email, aLoggedInUser.UserEmail),
+                    new Claim(ClaimTypes.Role, aLoggedInUser.UserRole)
                 }),
                 Expires = DateTime.UtcNow.AddDays(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
@@ -179,6 +384,25 @@ namespace Xpenser.API.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        private void SendVerificationEmail(AppUser aUser)
+        {
+            var vVerificationUrl = $"{AppSettings.WebAppBaseUrl}/LoginPage/{aUser.VerificationCode}";
+
+            var vSubject = "Email Verification Link";
+
+            using var vStreamReader = System.IO.File.OpenText("EmailTemplates/VerifyEmail.html");
+            string vTemplate = vStreamReader.ReadToEnd();
+            vTemplate = vTemplate.Replace("{PageTitle}", vSubject);
+            vTemplate = vTemplate.Replace("{FirstName}", aUser.FirstName);
+            vTemplate = vTemplate.Replace("{VerifyUrl}", vVerificationUrl);
+            vTemplate = vTemplate.Replace("{SiteUrl}", AppSettings.SiteUrl);
+            vTemplate = vTemplate.Replace("{LogoUrl}", AppSettings.SiteLogoUrl);
+            vTemplate = vTemplate.Replace("{HelpUrl}", AppSettings.HelpUrl);
+            vTemplate = vTemplate.Replace("{AppName}", AppSettings.AppName);
+            vTemplate = vTemplate.Replace("{CopyRightMessage}", AppSettings.CopyRightMessage);
+            EmailService.SendEmail(aUser.FullName, aUser.UserEmail, vSubject, vTemplate);
         }
 
     }

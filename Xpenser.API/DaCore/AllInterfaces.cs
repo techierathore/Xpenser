@@ -7,6 +7,9 @@ namespace Xpenser.API.DaCore
         AppUser GetLoginUser(string aLoginEmail, string aPassword);
         AppUser GetUserByEmail(string loginEmail);
         AppUser GetUserByMobile(string aMobileNo);
+        AppUser GetUserByVerificationCode(string aVerificationCode);
+        void UpdateUserEmail(AppUser aUser);
+        void UpdateVerificationCode(string verificationCode);
     }
     public interface IUserLoginRepository : IGenericRepository<UserLogin>
     {

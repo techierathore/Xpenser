@@ -20,7 +20,8 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 | Implimenting Authentication   | 1. Understanding Login Screen Flow                           | 4-March-2022         | https://youtu.be/y3ERWFW_MuY               |
 |                               | 2. Understanding Sign-Up Flow                                |                      |                | 
 | Impliment Email Verification  | 1. Impliment email Verification                              | 6-March-2022         | https://youtu.be/NTqcIdEU8nk               | 
-|                               | 2. Impliment Forget Password feature                         | 7-March-2022         |                | 
+|                               | 2. Continue Implimenting email Verification                  | 7-March-2022         | https://youtu.be/Ui_bM3L00Pw              | 
+|                               | 3. Impliment Forget Password feature (Homework for Audience )| 			          |                | 
 | Account Management            | 1. Verify Account Management Code                            | 8-March-2022         |                |
 |                               | 2. Understand Account Management Work Flow                   |                      |                |
 | Category Management           | 1. Verify Category Management Workflow                       | 7-March-2022         |                |

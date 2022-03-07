@@ -1,9 +1,12 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Xpenser.Models;
 using Xpenser.UI.Services;
+using Xpenser.UI.Shared;
 
 namespace Xpenser.UI.Pages
 {
@@ -23,6 +26,11 @@ namespace Xpenser.UI.Pages
         [CascadingParameter]
         private Task<AuthenticationState> AuthStateTask { get; set; }
 
+        VerifyPopUp VerifyDialog;
+
+        [Parameter]
+        public string PageCode { get; set; }
+        Modal VerifySuccess;
         protected async override Task OnInitializedAsync()
         {
             LoginDetails = new SvcData();
@@ -31,22 +39,73 @@ namespace Xpenser.UI.Pages
             PageClaimsPrincipal = (await AuthStateTask).User;
             if (PageClaimsPrincipal.Identity.IsAuthenticated)
             { NavigationManager.NavigateTo("/Index"); }
+
+            if (!string.IsNullOrEmpty(PageCode))
+            {
+                try
+                {
+                    await AuthSvc.VerifyEmailAsync(new SvcData
+                    {
+                        VerificationCode = PageCode
+                    });
+
+                    VerifySuccess.Show();
+                }
+                catch (Exception ex)
+                {
+                    LoginMesssage = ex.Message;
+                }
+            }
         }
 
-        public async Task<bool> ValidateUser()
+        public async Task ValidateUser()
         {
-            vValidatedUser = await AuthSvc.LoginAsync(LoginDetails);
+            try
+            {
+                vValidatedUser = await AuthSvc.LoginAsync(new SvcData
+                {
+                    LoginEmail = LoginDetails.LoginEmail,
+                    LoginPass = LoginDetails.LoginPass
+                });
+                if (vValidatedUser == null)
+                {
+                    LoginMesssage = "Invalid User Email or Password";
+                    return;
+                }
+                if (vValidatedUser.IsVerified)
+                {
+                    await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
+                    NavigationManager.NavigateTo("/Index");
+                }
+                else
+                {
+                    VerifyDialog.UserEmail = LoginDetails.LoginEmail;
+                    VerifyDialog.ShowPopUp();
+                }
+            }
+            catch (Exception ex)
+            {
+                LoginMesssage = ex.Message;
+            }
+        }
 
-            if (vValidatedUser.UserEmail != null)
+        public void OnDialogClose()
+        {
+            StateHasChanged();
+        }
+
+        public void ClosePopUp()
+        {
+            VerifySuccess.Hide();
+        }
+        public Task OnModalClosing(ModalClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing)
             {
-                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(vValidatedUser);
-                NavigationManager.NavigateTo("/Index");
+                // just set Cancel to true to prevent modal from closing
+                e.Cancel = true;
             }
-            else
-            {
-                LoginMesssage = "Invalid username or password";
-            }
-            return await Task.FromResult(true);
+            return Task.CompletedTask;
         }
     }
 }

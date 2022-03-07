@@ -64,7 +64,7 @@ CREATE PROCEDURE `ValidateLogin`(pEmail varchar(255), pPasswordHash varchar(255)
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `UserEmail`, `PasswordHash`, `MobileNo`,
-  `IsVerified`, `UserRole`, `ProfilePicId`
+  `VerificationCode`, `IsVerified`,`IsFirstLogin`, `UserRole`, `ProfilePicId`
 FROM AppUser  
 WHERE `EmailID` = pEmail AND `PasswordHash` = pPasswordHash;
 END;
@@ -73,7 +73,7 @@ CREATE PROCEDURE `AppUserByEmail`(pEmailID varchar(355))
 BEGIN
 SELECT 
   `AppUserId`, `FirstName`, `LastName`, `UserEmail`, `PasswordHash`, `MobileNo`,
-  `IsVerified`, `UserRole`, `ProfilePicId`
+  `VerificationCode`, `IsVerified`,`IsFirstLogin`, `UserRole`, `ProfilePicId`
 FROM AppUser  WHERE `EmailID` = pEmailID;
 END;
 
@@ -83,4 +83,25 @@ SELECT
   `AppUserId`, `FirstName`, `LastName`, `UserEmail`, `PasswordHash`, `MobileNo`,
   `IsVerified`, `UserRole`, `ProfilePicId`
 FROM AppUser  WHERE `MobileNo` = pMobileNo;
+END;
+
+CREATE PROCEDURE `GetUserByVerificationCode`(pVerificationCode varchar(355))
+BEGIN
+SELECT 	`AppUserId`, `FirstName`, `LastName`,`UserEmail`, `PasswordHash`, `MobileNo`,
+	`VerificationCode`, `IsVerified`,`IsFirstLogin`, `UserRole`,`ProfilePicId`
+FROM AppUser WHERE `VerificationCode` = pVerificationCode;
+END;
+
+CREATE PROCEDURE `AppUserUpdateEmail`
+(pAppUserId bigint, pUserEmail varchar(355),
+pVerificationCode varchar(355))
+BEGIN
+UPDATE AppUser SET `UserEmail` = pUserEmail, `VerificationCode` = pVerificationCode
+WHERE `AppUserId` = pAppUserId;
+END;
+
+CREATE PROCEDURE `UpdateVerificationCode`
+(pVerificationCode varchar(355))
+BEGIN
+UPDATE AppUser Set VerificationCode = '' Where VerificationCode = @pverificationCode;
 END;

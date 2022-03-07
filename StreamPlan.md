@@ -11,17 +11,17 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 
 | **Topic**                     | **Sub Topic**                                                | **Live Stream Date** | **Stream URL** |
 |-------------------------------|--------------------------------------------------------------|----------------------|----------------|
-| Overview Of Code              | 1. Project Structure                                         | 2-March-2022         |                |
+| Overview Of Code              | 1. Project Structure                                         | 2-March-2022         | https://youtu.be/0c3qSTAMPwY                |
 |                               | 2. Current Status of the Code                                |                      |                |
 |                               | 3. Refactoring Plan of the application                       |                      |                |
 |                               | 4. Full Fledged application Requirements                     |                      |                |
-| Refactoring Project Structure | 1. Seperating the DataAccess into a different project        | 3-March-2022         |                |
+| Refactoring Project Structure | 1. Seperating the DataAccess into a different project        | 3-March-2022         | https://youtu.be/Kpg2xRG9LsM               |
 |                               | 2. Moving the Interfaces to Models Project                   |                      |                |                                  
-| Implimenting Authentication   | 1. Understanding Login Screen Flow                           | 4-March-2022         |                |
+| Implimenting Authentication   | 1. Understanding Login Screen Flow                           | 4-March-2022         | https://youtu.be/y3ERWFW_MuY               |
 |                               | 2. Understanding Sign-Up Flow                                |                      |                | 
-| Implimenting Email Verification| 1. Impliment email Verification                              |  5-March-2022       |                | 
-|                               | 2. Impliment Forget Password feature                         |                      |                | 
-| Account Management            | 1. Verify Account Management Code                            | 6-March-2022         |                |
+| Impliment Email Verification  | 1. Impliment email Verification                              | 6-March-2022         | https://youtu.be/NTqcIdEU8nk               | 
+|                               | 2. Impliment Forget Password feature                         | 7-March-2022         |                | 
+| Account Management            | 1. Verify Account Management Code                            | 8-March-2022         |                |
 |                               | 2. Understand Account Management Work Flow                   |                      |                |
 | Category Management           | 1. Verify Category Management Workflow                       | 7-March-2022         |                |
 |                               | 2. Understand Category Management Work Flow                  |                      |                |
@@ -29,9 +29,9 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 |                               | 2. Impliment Ledger Entry                                    |                      |                |
 | Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 9-March-2022         |                |
 |                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |
-| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 10-March-2022         |                |
+| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 10-March-2022        |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
-| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 11-March-2022         |                |
+| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 11-March-2022        |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
 |                               |                                                              | 12-March-2022        |                |
 |                               |                                                              | 13-March-2022        |                |

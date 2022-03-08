@@ -34,7 +34,8 @@ CREATE TABLE `Category` (
 	`IconPicId` bigint,
 	PRIMARY KEY (`CategoryId`)
 );
-
+/* Reccuring Transaction table is for keeping a record of Reccuring Transactions
+like EMIs */
 CREATE TABLE `ReccuringTransaction` (
 	`ReccurTransId` bigint NOT NULL AUTO_INCREMENT,
 	`TransName` varchar(255) NOT NULL,
@@ -47,6 +48,7 @@ CREATE TABLE `ReccuringTransaction` (
 	PRIMARY KEY (`ReccurTransId`)
 );
 
+/* Target table is for setting Personal Targets */
 CREATE TABLE `Target` (
 	`TargetId` bigint NOT NULL AUTO_INCREMENT,
 	`TargetTitle` varchar(255) NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE `UserLogin` (
 	`IssueDate` DATETIME NOT NULL,
 	PRIMARY KEY (`LoginId`)
 );
-
+/* Ledger is the main table for managing the transactions */
 CREATE TABLE `Ledger` (
 	`TransId` bigint NOT NULL AUTO_INCREMENT,
 	`TransName` varchar(255) NOT NULL,
@@ -78,7 +80,8 @@ CREATE TABLE `Ledger` (
 	`TransType` varchar(255) NOT NULL,
 	`AppUserId` bigint NOT NULL,
 	`CategoryId` bigint NOT NULL,
-	`AccountId` bigint NOT NULL,
+	`SrcAccId` bigint NOT NULL,
+	`DestinationAccId` bigint NULL,
 	`PicIds` varchar(255) NOT NULL,
 	PRIMARY KEY (`TransId`)
 );

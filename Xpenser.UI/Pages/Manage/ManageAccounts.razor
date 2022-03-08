@@ -40,10 +40,10 @@
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
                                         <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Account Type</FieldLabel>
                                         <FieldBody ColumnSize="ColumnSize.Is12">
-                                            <SelectList Data="@AccountList"
-                                                        TextField="@((item)=>item.AccountName)"
-                                                        ValueField="@((item)=>item.AccounValue)"
-                                                        SelectedValue="@SelectedAccountType" />
+                    <InputSelect @bind-Value="@SelectedAccountType">
+                        @foreach (var vSingle in AccTypeList)
+                        {<option value="@vSingle.AccounValue">@vSingle.AccountName</option>}
+                    </InputSelect>
                                         </FieldBody>
                                     </Field>
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">

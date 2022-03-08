@@ -22,11 +22,11 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 | Impliment Email Verification  | 1. Impliment email Verification                              | 6-March-2022         | https://youtu.be/NTqcIdEU8nk               | 
 |                               | 2. Continue Implimenting email Verification                  | 7-March-2022         | https://youtu.be/Ui_bM3L00Pw              | 
 |                               | 3. Impliment Forget Password feature (Homework for Audience )| 			          |                | 
-| Account Management            | 1. Verify Account Management Code                            | 8-March-2022         |                |
-|                               | 2. Understand Account Management Work Flow                   |                      |                |
-| Category Management           | 1. Verify Category Management Workflow                       | 7-March-2022         |                |
-|                               | 2. Understand Category Management Work Flow                  |                      |                |
-| Ledger Management             | 1. Understand Ledger Purpose & Work Flow                     | 8-March-2022         |                |
+| Account Management            | 1.  Understand the Databse Design and Purpose of Tables      | 8-March-2022         | https://youtu.be/A-uUY-PR1gQ               |
+|                               | 2.  Verify Account Management Code                  		   |                      |                |
+| Category Management           | 1. Understand Account Management & Category  Work Flow       | 9-March-2022         |                |
+|                               | 2. Verify & update Category Management Work Flow             |                      |                |
+| Ledger Management             | 1. Understand Ledger Purpose & Work Flow                     | 10-March-2022        |                |
 |                               | 2. Impliment Ledger Entry                                    |                      |                |
 | Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 9-March-2022         |                |
 |                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |

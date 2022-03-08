@@ -28,7 +28,7 @@ namespace Xpenser.UI.Pages.Manage
         ClaimsPrincipal LoggedInUser;
         string SelectedAccountType;
 
-        public List<AccountType> AccountList { get; set; }
+        public List<AccountType> AccTypeList { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -38,7 +38,7 @@ namespace Xpenser.UI.Pages.Manage
                     PageHeader = "Edit Account";
                     PageObj = await DataService.GetSingleAsync(GetObjectServiceUrl, PageId);
                     SelectedAccountType = PageObj.AcType;
-                    AccountList = GetAccountTypes();
+                    AccTypeList = GetAccountTypes();
                 }
                 else ResetPage();
                 StateHasChanged();
@@ -50,13 +50,13 @@ namespace Xpenser.UI.Pages.Manage
         {
             PageHeader = "Add Account";
             PageObj = new Account();
-            AccountList = GetAccountTypes();
+            AccTypeList = GetAccountTypes();
             StateHasChanged();
         }
 
         public async void SaveData()
         {
-
+            PageObj.AcType = SelectedAccountType;
             if (PageId != 0)
             { _ = await DataService.UpdateAsync(UpdateServiceUrl, PageObj); }
             else
@@ -72,10 +72,11 @@ namespace Xpenser.UI.Pages.Manage
             AppNavManager.NavigateTo(ListPageUrl);
         }
      
-        void OnSelectedValueChangedAccount(string value)
+        void OnAccTypeChanged(string value)
         {
             //SelectedAccountType=value.ToString();
             PageObj.AcType = SelectedAccountType;
+            StateHasChanged();
         }
 
         public List<AccountType> GetAccountTypes()
@@ -83,7 +84,8 @@ namespace Xpenser.UI.Pages.Manage
             List<AccountType> Accounts = new List<AccountType>() {
                 new AccountType { AccountName = "Saving", AccounValue = "Saving" },
                 new AccountType { AccountName = "Current", AccounValue = "Current" },
-                new AccountType { AccountName = "Card", AccounValue = "Card" },
+                new AccountType { AccountName = "Credit Card", AccounValue = "CreditCard" },
+                new AccountType { AccountName = "Cash", AccounValue = "Cash" },
              };       
           
             return Accounts;

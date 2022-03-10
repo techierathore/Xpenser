@@ -38,16 +38,13 @@
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
                                         <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Parent Category</FieldLabel>
                                         <FieldBody ColumnSize="ColumnSize.Is12">
-                                            <SelectList Data="@CategoryList"
-                                                        TextField="@((item)=>item.CategoryName)"
-                                                        ValueField="@((item)=>item.CategoryId)"
-                                                        SelectedValue="@SubCatId" />
-
+                                            <InputSelect @bind-Value="@SubCatId">
+                                                @foreach (var vSingle in CategoryList)
+                                                {<option value="@vSingle.CategoryId">@vSingle.CategoryName</option>}
+                                            </InputSelect>
                                         </FieldBody>
                                     </Field>
                                 </Validation>
-
-
                             </Fields>
                         </CardBody>
                     </fieldset>

@@ -24,23 +24,23 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 |                               | 3. Impliment Forget Password feature (Homework for Audience )| 			          |                | 
 | Account Management            | 1.  Understand the Databse Design and Purpose of Tables      | 8-March-2022         | https://youtu.be/A-uUY-PR1gQ               |
 |                               | 2.  Verify Account Management Code                  		   |                      |                |
-| Category Management           | 1. Understand Account Management & Category  Work Flow       | 9-March-2022         |                |
+| Category Management           | 1. Understand Account Management & Category  Work Flow       | 10-March-2022         | https://youtu.be/ym2JrRBpToM               |
 |                               | 2. Verify & update Category Management Work Flow             |                      |                |
-| Ledger Management             | 1. Understand Ledger Purpose & Work Flow                     | 10-March-2022        |                |
+| Ledger Management             | 1. Understand Ledger Purpose & Work Flow                     | 11-March-2022        |                |
 |                               | 2. Impliment Ledger Entry                                    |                      |                |
-| Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 9-March-2022         |                |
+| Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 14-March-2022         |                |
 |                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |
-| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 10-March-2022        |                |
+| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 15-March-2022        |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
-| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 11-March-2022        |                |
+| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 15-March-2022        |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
-|                               |                                                              | 12-March-2022        |                |
-|                               |                                                              | 13-March-2022        |                |
-|                               |                                                              | 14-March-2022        |                |
-|                               |                                                              | 15-March-2022        |                |
-|                               |                                                              | 16-March-2022        |                |
-|                               |                                                              | 17-March-2022        |                |
-|                               |                                                              | 18-March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |  -March-2022        |                |
 
 
  

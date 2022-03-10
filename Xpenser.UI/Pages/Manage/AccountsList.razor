@@ -13,13 +13,15 @@
         }
         else
         {
-            <DataGrid TItem="Account" Data="@ObjectList" Editable="false" Sortable="true" Filterable="false"
-                      ShowPager="true" UseInternalEditing="false" @bind-SelectedRow="@SelObject"
-                      Striped="false" Bordered="false" Hoverable="true" Responsive="true" PageSize="15">
+            <DataGrid TItem="Account" Data="@ObjectList" @bind-SelectedRow="@SelObject" 
+                      Sortable="true" Filterable="false" ShowPager="false"  PageSize="15"
+                      UseInternalEditing="false" Editable="false" Striped="false" 
+                      Bordered="true" Hoverable="true" Responsive="true">
                 <DataGridColumns>
                     <DataGridColumn TItem="Account" Field="@nameof(Account.AcNumber)" Caption="Account No" />
                     <DataGridColumn TItem="Account" Field="@nameof(Account.AcccountName)" Caption="Name" />
                     <DataGridColumn TItem="Account" Field="@nameof(Account.AcType)" Caption="Type" />
+                    <DataGridColumn TItem="Account" Field="@nameof(Account.OpenBal)" Caption="Opening Balance" />
                     <DataGridDateColumn TItem="Account" Field="@nameof( Account.StartDate )" DisplayFormat="{0:MM/dd/yyyy}" Caption="Start Date" />
                     <DataGridColumn TItem="Account" Field="@nameof(Account.AccountId)">
                         <DisplayTemplate>

@@ -72,13 +72,6 @@ namespace Xpenser.UI.Pages.Manage
             AppNavManager.NavigateTo(ListPageUrl);
         }
      
-        void OnAccTypeChanged(string value)
-        {
-            //SelectedAccountType=value.ToString();
-            PageObj.AcType = SelectedAccountType;
-            StateHasChanged();
-        }
-
         public List<AccountType> GetAccountTypes()
         {
             List<AccountType> Accounts = new List<AccountType>() {

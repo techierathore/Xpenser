@@ -38,8 +38,7 @@ namespace Xpenser.UI.Pages.Manage
                     PageHeader = "Edit Expense Category";
                     PageObj = await DataService.GetSingleAsync(GetObjectServiceUrl, PageId);
                     SubCatId = PageObj.ParentId;
-                    var Categories = await DataService.GetAllAsync(ClientConstants.CatListSvcUrl);
-                    CategoryList = Categories.Select(x => new Category { CategoryName = x.CategoryName, CategoryId = x.CategoryId });
+                    await LoadCategories();
                 }
                 else await ResetPage();
                 StateHasChanged();
@@ -51,14 +50,19 @@ namespace Xpenser.UI.Pages.Manage
         {
             PageHeader = "Add Expense Category";
             PageObj = new Category();
+            await LoadCategories();
+            StateHasChanged();
+        }
+
+        private async Task LoadCategories()
+        {
             var Categories = await DataService.GetAllAsync(ClientConstants.CatListSvcUrl);
             CategoryList = Categories.Select(x => new Category { CategoryName = x.CategoryName, CategoryId = x.CategoryId });
-            StateHasChanged();
         }
 
         public async void SaveData()
         {
-
+            PageObj.ParentId = SubCatId;
             if (PageId != 0)
             { _ = await DataService.UpdateAsync(UpdateServiceUrl, PageObj); }
             else
@@ -73,13 +77,6 @@ namespace Xpenser.UI.Pages.Manage
             }
 
             AppNavManager.NavigateTo(ListPageUrl);
-        }
-
-        void MyListValueChangedHandler(long newValue)
-        {
-            //SubCatId = Convert.ToInt64(newValue);
-            PageObj.ParentId = SubCatId;
-
         }
 
     }

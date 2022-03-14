@@ -19,6 +19,8 @@ namespace Xpenser.API.DaCore
     { }
     public interface ICategoryRepository : IGenericRepository<Category>
     { }
+    public interface ILedgerRepository : IGenericRepository<Ledger>
+    { }
     public interface IReccuringTransactionRepository : IGenericRepository<ReccuringTransaction>
     { }
 

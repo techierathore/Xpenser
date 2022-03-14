@@ -57,6 +57,7 @@ namespace Xpenser.API
             services.AddTransient<IAppUserRepository>(x => new AppUserRepo(sConString));
             services.AddTransient<IAccountRepository>(x => new AccountRepo(sConString));
             services.AddTransient<ICategoryRepository>(x => new CategoryRepo(sConString));
+            services.AddTransient<ILedgerRepository>(x => new LedgerRepo(sConString));
             services.AddTransient<IReccuringTransactionRepository>(x => new RecurringTransactionRepo(sConString));
             services.AddControllers();
 

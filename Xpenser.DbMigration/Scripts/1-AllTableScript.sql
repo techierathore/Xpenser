@@ -81,7 +81,7 @@ CREATE TABLE `Ledger` (
 	`AppUserId` bigint NOT NULL,
 	`CategoryId` bigint NOT NULL,
 	`SrcAccId` bigint NOT NULL,
-	`DestinationAccId` bigint NULL,
+	`DestAccId` bigint NULL,
 	`PicIds` varchar(255) NOT NULL,
 	PRIMARY KEY (`TransId`)
 );

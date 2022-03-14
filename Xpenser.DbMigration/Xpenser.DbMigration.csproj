@@ -90,7 +90,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\6-TargetSPs.sql" />
+    <Content Include="Scripts\6-ReccuringTransactionSPs.sql" />
+    <Content Include="Scripts\7-TargetSPs.sql" />
+    <Content Include="Scripts\8-LedgerSPs.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\1-AllTableScript.sql" />

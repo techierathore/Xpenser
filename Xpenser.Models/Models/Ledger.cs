@@ -11,7 +11,10 @@ namespace Xpenser.Models
 		public string TransType	{ get; set; }
 		public long AppUserId	{ get; set; }
 		public long CategoryId	{ get; set; }
-		public long AccountId	{ get; set; }
+		public long SrcAccId { get; set; }
+		public string SrcAccName { get; set; }
+		public long DestAccId { get; set; }
+		public string DestAccName { get; set; }
 		public string PicIds { get; set; }
 	}
 }

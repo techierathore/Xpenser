@@ -10,7 +10,12 @@ namespace Xpenser.API.DbAccess
     {
         public AccountRepo(string connectionString) : base(connectionString) { }
         public override IEnumerable<Account> GetAllById(long aSingleId)
-        { throw new System.NotImplementedException(); }
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pAppUserId", aSingleId);
+            return vConn.Query<Account>("AccountsByUserId", vParams, commandType: CommandType.StoredProcedure);
+        }
 
         public override IEnumerable<Account> GetAll()
         {

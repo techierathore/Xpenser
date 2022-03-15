@@ -24,6 +24,13 @@ namespace Xpenser.API.Controllers
         }
         [Route("[action]/{aSingleId}")]
         [HttpGet]
+        public IActionResult GetUserAccounts(long aAppUserId)
+        {
+            var vReturnVal = AccRepo.GetAllById(aAppUserId);
+            return Ok(vReturnVal);
+        }
+        [Route("[action]/{aSingleId}")]
+        [HttpGet]
         public IActionResult GetSingleAccount(long aSingleId)
         {
             var vReturnVal = AccRepo.GetSingle(aSingleId);

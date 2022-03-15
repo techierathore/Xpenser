@@ -1,23 +1,23 @@
 ﻿CREATE PROCEDURE AccountSelectAll()
-
 BEGIN
-
-SELECT   
-	`AccountId`,`AcccountName`,`AcNumber`,`OpenBal`,
+SELECT `AccountId`,`AcccountName`,`AcNumber`,`OpenBal`,
     `AcType`,`StartDate`,`AppUserId`, `IconPicId`
 FROM Account;
+END;
 
+CREATE PROCEDURE AccountsByUserId (pAppUserId bigint(20))
+
+BEGIN
+SELECT 	`AccountId`,`AcccountName`,`AcNumber`,`OpenBal`,
+	`AcType`,`StartDate`,`AppUserId`, `IconPicId`
+FROM Account WHERE `AppUserId` = pAppUserId;
 END;
 
 CREATE PROCEDURE AccountSelect (pAccountId bigint(20))
-
 BEGIN
-
-SELECT 
-	`AccountId`,`AcccountName`,`AcNumber`,`OpenBal`,
+SELECT	`AccountId`,`AcccountName`,`AcNumber`,`OpenBal`,
 	`AcType`,`StartDate`,`AppUserId`, `IconPicId`
 FROM Account WHERE `AccountId` = pAccountId;
-
 END;
 
 CREATE PROCEDURE AccountInsert

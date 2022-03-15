@@ -3,6 +3,8 @@ namespace Xpenser.Models
 {
     public static class AppConstants
     {
+        public const string ExpenseType = "Expense";
+        public const string IncomeType = "Income";
         public static string AppTokenKey = "access_token";
         public static string AccessKey = "AccessToken";
         public static string RefreshKey = "RefreshToken";

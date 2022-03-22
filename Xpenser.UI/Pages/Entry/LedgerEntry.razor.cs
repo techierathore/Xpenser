@@ -20,6 +20,8 @@ namespace Xpenser.UI.Pages.Entry
         NavigationManager AppNavManager { get; set; }
         [Inject]
         public IManageService<Ledger> DataService { get; set; }
+        [Inject]
+        public IManageService<Account> AccDataService { get; set; }
         public string PageHeader { get; set; }
         public Ledger PageObj { get; set; }
         protected const string GetObjectServiceUrl = "LedgerSvc/GetSingleRecord/";
@@ -35,10 +37,10 @@ namespace Xpenser.UI.Pages.Entry
         {
             if (firstRender)
             {
+                UserAccList = await GetUserAccList();
                 if (PageId != 0)
                 {
                     PageHeader = "Edit " + TransType + " Entry";
-                    UserAccList = new List<Account>();
                     PageObj = await DataService.GetSingleAsync(GetObjectServiceUrl, PageId);
                 }
                 else ResetPage();
@@ -46,12 +48,20 @@ namespace Xpenser.UI.Pages.Entry
             }
         }
 
+        protected async Task<List<Account>> GetUserAccList()
+        {
+            LoggedInUser = (await AuthStateTask).User;
+            string vEmpId = LoggedInUser.Claims.FirstOrDefault(
+                c => c.Type == ClaimTypes.PrimarySid)?.Value;
+            long lEmployeeId = Convert.ToInt64(vEmpId);
+            var ObjectList = await AccDataService.GetAllSubsAsync(ClientConstants.UserAccSvcUrl, lEmployeeId);
+            return ObjectList;
+        }
 
         private void ResetPage()
         {
             PageHeader = TransType + " Entry";
             PageObj = new Ledger();
-            UserAccList = new List<Account>();
             StateHasChanged();
         }
 
@@ -68,6 +78,10 @@ namespace Xpenser.UI.Pages.Entry
                     c => c.Type == ClaimTypes.PrimarySid)?.Value;
                 long lEmployeeId = Convert.ToInt64(vEmpId);
                 PageObj.AppUserId = lEmployeeId;
+                PageObj.TransType=TransType;
+                PageObj.PicIds = " ";
+                PageObj.SrcAccId = SelSrcAcc;
+                PageObj.DestAccId = SelDstAcc;
                 _ = await DataService.SaveAsync(CreateServiceUrl, PageObj);
             }
 

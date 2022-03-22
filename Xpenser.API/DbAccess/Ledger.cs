@@ -50,6 +50,7 @@ namespace Xpenser.API.DbAccess
             vParams.Add("@pAmount", aEntity.Amount);
             vParams.Add("@pTransType", aEntity.TransType);
             vParams.Add("@pAppUserId", aEntity.AppUserId);
+            vParams.Add("@pCategoryId", aEntity.CategoryId);
             vParams.Add("@pSrcAccId", aEntity.SrcAccId);
             vParams.Add("@pDestAccId", aEntity.DestAccId);
             vParams.Add("@pPicIds", aEntity.PicIds);
@@ -68,6 +69,7 @@ namespace Xpenser.API.DbAccess
             vParams.Add("@pAmount", aEntity.Amount);
             vParams.Add("@pTransType", aEntity.TransType);
             vParams.Add("@pAppUserId", aEntity.AppUserId);
+            vParams.Add("@pCategoryId", aEntity.CategoryId);
             vParams.Add("@pSrcAccId", aEntity.SrcAccId);
             vParams.Add("@pDestAccId", aEntity.DestAccId);
             vParams.Add("@pPicIds", aEntity.PicIds);

@@ -28,20 +28,17 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 |                               | 2. Verify & update Category Management Work Flow             |                      |                |
 | Ledger Management             | 1. Create Ledger CRUD Scripts & Service                      | 14-March-2022        | https://youtu.be/mm0QYqFVFdE                |
 |                               | 2. Create Income & Expense Entry  Screens                    | 15-March-2022        | https://youtu.be/WVdudrBotgA               |
-|                               | 3. Explain Income Expense Workflow                           |                      |                |
-| Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      | 16-March-2022        |                |
+|                               | 3. Continue Working on Income Expense Screens                | 21-March-2022        | https://youtu.be/jJl8q7mgNDs               |
+|                               |  											                   |                      |                |
+|                               |                                                              |                      |                |
+| Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      |                      |                |
 |                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |
-| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             | 17-March-2022        |                |
+| Expense Report                | 1. Understand Expense Report Purpose & Work Flow             |                      |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
-| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             | 18-March-2022        |                |
+| Income Report                 | 1. Understand Expense Report Purpose & Work Flow             |                      |                |
 |                               | 2. Impliment Expense Report & Flow                           |                      |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
-|                               |                                                              |  -March-2022        |                |
+|                               |                                                              |                      |                |
+|                               |                                                              |                      |                |
 
 
  

@@ -22,7 +22,7 @@ namespace Xpenser.API.Controllers
             var vReturnVal = AccRepo.GetAll();
             return Ok(vReturnVal);
         }
-        [Route("[action]/{aSingleId}")]
+        [Route("[action]/{aAppUserId}")]
         [HttpGet]
         public IActionResult GetUserAccounts(long aAppUserId)
         {

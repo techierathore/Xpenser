@@ -28,8 +28,8 @@ Xpenser is a open source budget and expense tracking tool developed in Blazor Se
 |                               | 2. Verify & update Category Management Work Flow             |                      |                |
 | Ledger Management             | 1. Create Ledger CRUD Scripts & Service                      | 14-March-2022        | https://youtu.be/mm0QYqFVFdE                |
 |                               | 2. Create Income & Expense Entry  Screens                    | 15-March-2022        | https://youtu.be/WVdudrBotgA               |
-|                               | 3. Continue Working on Income Expense Screens                | 21-March-2022        | https://youtu.be/jJl8q7mgNDs               |
-|                               |  											                   |                      |                |
+|                               | 3. Continue Working on Income Expense Screens                | 22-March-2022        | https://youtu.be/jJl8q7mgNDs               |
+|                               | 4. Completed Business Logic of Income Entry Screen           | 23-March-2022        | https://youtu.be/xA27xvHFXrQ               |
 |                               |                                                              |                      |                |
 | Reccuring Transaction         | 1. Understand Reccuring Transaction Purpose & Work Flow      |                      |                |
 |                               | 2. Impliment Reccuring Transaction Entry & Flow              |                      |                |

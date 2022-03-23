@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Xpenser.API.DaCore;
@@ -69,6 +70,22 @@ namespace Xpenser.API.DbAccess
             vParams.Add("@pAppUserId", aEntity.AppUserId);
             vParams.Add("@pIconPicId", aEntity.IconPicId);
             vConn.Execute("AccountUpdate", vParams, commandType: CommandType.StoredProcedure);
+        }
+        public void AddAmount(long aAccId, Double aAmount)
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pAccountId", aAccId);
+            vParams.Add("@pAmount", aAmount);
+            vConn.Execute("AddAmount", vParams, commandType: CommandType.StoredProcedure);
+        }
+        public void DeductAmount(long aAccId, Double aAmount)
+        {
+            using var vConn = GetOpenConnection();
+            var vParams = new DynamicParameters();
+            vParams.Add("@pAccountId", aAccId);
+            vParams.Add("@pAmount", aAmount);
+            vConn.Execute("DeductAmount", vParams, commandType: CommandType.StoredProcedure);
         }
     }
 }

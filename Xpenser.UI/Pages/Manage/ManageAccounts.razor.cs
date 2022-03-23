@@ -75,10 +75,11 @@ namespace Xpenser.UI.Pages.Manage
         public List<AccountType> GetAccountTypes()
         {
             List<AccountType> Accounts = new List<AccountType>() {
-                new AccountType { AccountName = "Saving", AccounValue = "Saving" },
-                new AccountType { AccountName = "Current", AccounValue = "Current" },
-                new AccountType { AccountName = "Credit Card", AccounValue = "CreditCard" },
-                new AccountType { AccountName = "Cash", AccounValue = "Cash" },
+                new AccountType { AccountName = AppConstants.AccTypeSaving, AccounValue = AppConstants.AccTypeSaving },
+                new AccountType { AccountName = AppConstants.AccTypeCurrent, AccounValue =AppConstants.AccTypeCurrent },
+                new AccountType { AccountName ="Credit Card", AccounValue = AppConstants.AccTypeCredit },
+                new AccountType { AccountName = AppConstants.AccTypeCash, AccounValue = AppConstants.AccTypeCash },
+                new AccountType { AccountName = AppConstants.AccTypeeWallet, AccounValue = AppConstants.AccTypeeWallet }
              };       
           
             return Accounts;

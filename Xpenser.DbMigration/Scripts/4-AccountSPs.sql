@@ -90,3 +90,10 @@ SET  `AcccountName`= pAcccountName,`AcNumber` = pAcNumber,`OpenBal` = pOpenBal,
 WHERE `AccountId` = pAccountId;
 
 END;
+
+CREATE PROCEDURE AddAmount (pAccountId bigint(20), pAmount double)
+BEGIN
+
+UPDATE Account SET  `OpenBal` = (OpenBal + pAmount)  WHERE `AccountId` = pAccountId;
+
+END;

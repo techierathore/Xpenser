@@ -1,4 +1,5 @@
-﻿using Xpenser.Models;
+﻿using System;
+using Xpenser.Models;
 
 namespace Xpenser.API.DaCore
 {
@@ -16,7 +17,10 @@ namespace Xpenser.API.DaCore
         UserLogin GetUserByToken(long aUserId, string aToken);
     }
     public interface IAccountRepository : IGenericRepository<Account>
-    { }
+    {
+        void AddAmount(long aAccId, Double aAmount);
+        void DeductAmount(long aAccId, Double aAmount);
+    }
     public interface ICategoryRepository : IGenericRepository<Category>
     { }
     public interface ILedgerRepository : IGenericRepository<Ledger>

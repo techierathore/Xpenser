@@ -36,7 +36,7 @@
                                     <Field Horizontal="true" ColumnSize="ColumnSize.Is6.OnDesktop">
                                         <FieldLabel ColumnSize="ColumnSize.Is12" Class="LabelDesign">Source Account</FieldLabel>
                                         <FieldBody ColumnSize="ColumnSize.Is12">
-                                            <InputSelect @bind-Value="@SelSrcAcc">
+                                            <InputSelect @bind-Value="@SelAccount">
                                                 @foreach (var vSingle in UserAccList)
                                                 {<option value="@vSingle.AccountId">@vSingle.AcccountName</option>}
                                             </InputSelect>

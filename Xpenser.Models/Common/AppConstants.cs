@@ -5,6 +5,11 @@ namespace Xpenser.Models
     {
         public const string ExpenseType = "Expense";
         public const string IncomeType = "Income";
+        public const string AccTypeSaving = "Saving";
+        public const string AccTypeCurrent = "Current";
+        public const string AccTypeCash = "Cash";
+        public const string AccTypeCredit = "CreditCard";
+        public const string AccTypeeWallet = "eWallet";
         public static string AppTokenKey = "access_token";
         public static string AccessKey = "AccessToken";
         public static string RefreshKey = "RefreshToken";

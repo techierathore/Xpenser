@@ -11,9 +11,12 @@ namespace Xpenser.API.Controllers
     public class LedgerSvcController : Controller
     {
         private readonly ILedgerRepository LedgerRepo;
-        public LedgerSvcController(ILedgerRepository aLedgerRepo)
+        private readonly IAccountRepository AccRepo;
+        public LedgerSvcController(ILedgerRepository aLedgerRepo,
+            IAccountRepository aAccRepo)
         {
             LedgerRepo = aLedgerRepo;
+            AccRepo = aAccRepo;
         }
 
         [HttpGet("GetAllRecords")]
@@ -46,6 +49,7 @@ namespace Xpenser.API.Controllers
             if (!ModelState.IsValid)
             { return BadRequest(ModelState); }
             aObject.TransId = LedgerRepo.InsertToGetId(aObject);
+            UpdateAmount(aObject);
             return Ok(aObject);
         }
 
@@ -56,6 +60,19 @@ namespace Xpenser.API.Controllers
             { return BadRequest(); }
             LedgerRepo.Update(aObject);
             return Ok(aObject);
+        }
+
+        private void UpdateAmount (Ledger aLedgerObject)
+        {
+            switch (aLedgerObject.TransType)
+            {
+                case AppConstants.IncomeType: 
+                        AccRepo.AddAmount(aLedgerObject.SrcAccId, aLedgerObject.Amount);
+                    break;
+                case AppConstants.ExpenseType:
+                    AccRepo.DeductAmount(aLedgerObject.SrcAccId, aLedgerObject.Amount);
+                    break;
+            }
         }
 
     }

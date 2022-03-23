@@ -31,7 +31,7 @@ namespace Xpenser.UI.Pages.Entry
         [CascadingParameter]
         private Task<AuthenticationState> AuthStateTask { get; set; }
         ClaimsPrincipal LoggedInUser;
-        long SelSrcAcc, SelDstAcc;
+        long SelAccount;
         public List<Account> UserAccList { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -55,6 +55,13 @@ namespace Xpenser.UI.Pages.Entry
                 c => c.Type == ClaimTypes.PrimarySid)?.Value;
             long lEmployeeId = Convert.ToInt64(vEmpId);
             var ObjectList = await AccDataService.GetAllSubsAsync(ClientConstants.UserAccSvcUrl, lEmployeeId);
+            if (TransType == AppConstants.IncomeType)
+            {
+                ObjectList = ObjectList
+                    .Where(l => l.AcType == AppConstants.AccTypeSaving 
+                            || l.AcType == AppConstants.AccTypeCurrent)
+                    .ToList();
+            }
             return ObjectList;
         }
 
@@ -80,8 +87,7 @@ namespace Xpenser.UI.Pages.Entry
                 PageObj.AppUserId = lEmployeeId;
                 PageObj.TransType=TransType;
                 PageObj.PicIds = " ";
-                PageObj.SrcAccId = SelSrcAcc;
-                PageObj.DestAccId = SelDstAcc;
+                PageObj.SrcAccId = SelAccount;
                 _ = await DataService.SaveAsync(CreateServiceUrl, PageObj);
             }
 
